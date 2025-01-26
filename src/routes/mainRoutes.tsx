@@ -28,12 +28,12 @@ const mainRoutes: TUserPaths[] = [
     element: <Order />,
   },
   {
-    name: "login",
+    name: "Login",
     path: "login",
     element: <Login />,
   },
   {
-    name: "signup",
+    name: "Signup",
     path: "signup",
     element: <Register />,
   },

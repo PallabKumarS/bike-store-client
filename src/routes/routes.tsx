@@ -18,11 +18,11 @@ const router = createBrowserRouter([
     children: routesGenerator(adminPaths),
   },
   {
-    path: "/users",
+    path: "/customer",
     element: <DashboardLayout />,
     children: [
       {
-        path: "users/dashboard",
+        path: "customer/dashboard",
         element: <UserDashboard />,
       },
     ],
