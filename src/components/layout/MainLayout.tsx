@@ -8,6 +8,7 @@ import {
 } from "../../redux/features/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import Sidebar from "./Sidebar";
+import CustomFooter from "./CustomFooter";
 
 const MainLayout = ({ sideBar = false }: { sideBar?: boolean }) => {
   const token = useAppSelector(selectCurrentToken);
@@ -22,7 +23,15 @@ const MainLayout = ({ sideBar = false }: { sideBar?: boolean }) => {
     >
       {sideBar && <Sidebar />}
       <Layout>
-        <Header className="" style={{}}>
+        <Header
+          className=""
+          style={{
+            position: "sticky",
+            top: 0,
+            zIndex: 1,
+            width: "100%",
+          }}
+        >
           <div className="flex justify-center items-center md:justify-around gap-2">
             {!sideBar && (
               <NavLink
@@ -50,7 +59,7 @@ const MainLayout = ({ sideBar = false }: { sideBar?: boolean }) => {
           </div>
         </Content>
         <Footer style={{ textAlign: "center" }}>
-          Ant Design ©{new Date().getFullYear()} Created by Ant UED
+          <CustomFooter />
         </Footer>
       </Layout>
     </Layout>

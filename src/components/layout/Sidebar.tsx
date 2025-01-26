@@ -31,6 +31,7 @@ const Sidebar = () => {
       sidebarRoutes = [];
   }
 
+
   return (
     <Sider
       translate="yes"
@@ -45,6 +46,7 @@ const Sidebar = () => {
         position: "sticky",
         top: 0,
         left: 0,
+        zIndex: 100,
       }}
     >
       <div
@@ -61,21 +63,21 @@ const Sidebar = () => {
 
       {/* Custom Trigger Button */}
       <div
-        className="block md:hidden z-50"
+        className="block md:hidden"
         style={{
           position: "absolute",
           top: "4%",
           transform: "translateY(-50%)",
           left: collapsed ? "5px" : "190px",
           transition: "left 0.3s",
-          zIndex: 10,
+          zIndex: 50,
         }}
         onClick={() => setCollapsed(!collapsed)}
       >
         {collapsed ? (
-          <RiMenuFold4Fill className="text-4xl text-blue-700" />
+          <RiMenuFold4Fill className="text-4xl text-blue-700 z-50" />
         ) : (
-          <RiMenuFold3Fill className="text-4xl text-blue-700" />
+          <RiMenuFold3Fill className="text-4xl text-blue-700 z-50" />
         )}
       </div>
 
