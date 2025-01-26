@@ -67,10 +67,10 @@ const AddProduct: React.FC = () => {
   return (
     <>
       <Button type="primary" onClick={showDrawer} icon={<PlusOutlined />}>
-        New account
+        New Product
       </Button>
       <Drawer
-        title="Create a new account"
+        title="Add a New Product"
         width={720}
         onClose={onClose}
         open={open}
@@ -84,7 +84,7 @@ const AddProduct: React.FC = () => {
           <Row gutter={16}>
             {/* name of bicycle  */}
             <Col span={12}>
-              <CustomInput name="name" label="Name of Bicycle" />
+              <CustomInput name="name" label="Name of Bike" />
             </Col>
             {/* brand name */}
             <Col span={12}>
@@ -97,7 +97,7 @@ const AddProduct: React.FC = () => {
             <Col span={12}>
               <CustomSelect
                 name="category"
-                label="Category of Bicycle"
+                label="Category of Bike"
                 options={categoryOptions}
               />
             </Col>

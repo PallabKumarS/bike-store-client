@@ -26,9 +26,9 @@ const ProductManagement = () => {
   );
 
   return (
-    <div>
+    <div className="container mx-auto py-10">
       <div className="flex flex-col md:flex-row justify-between items-center gap-5 mb-10">
-        <h1 className="text-2xl font-semibold ">All Products</h1>
+        <h1 className="text-2xl font-semibold">All Products</h1>
 
         <AddProduct />
       </div>
@@ -38,7 +38,7 @@ const ProductManagement = () => {
           <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="md:flex space-y-3 flex-wrap gap-5 justify-center items-center">
           {productsData?.data?.map((product: TProduct) => (
             <ProductCard key={product?._id} product={product} />
           ))}

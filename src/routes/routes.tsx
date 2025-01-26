@@ -5,12 +5,14 @@ import mainRoutes from "./mainRoutes";
 import adminPaths from "./adminRoutes";
 import UserDashboard from "../pages/user/UserDashboard";
 import DashboardLayout from "../components/layout/DashboardLayout";
+import ErrorPage from "@/pages/Errorpage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: routesGenerator(mainRoutes),
+    errorElement: <ErrorPage />,
   },
   {
     path: "/admin",

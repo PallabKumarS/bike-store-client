@@ -61,7 +61,7 @@ const Sidebar = () => {
 
       {/* Custom Trigger Button */}
       <div
-        className="display md:block"
+        className="block md:hidden z-50"
         style={{
           position: "absolute",
           top: "4%",

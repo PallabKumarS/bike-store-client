@@ -15,6 +15,7 @@ const MainLayout = ({ sideBar = false }: { sideBar?: boolean }) => {
 
   return (
     <Layout
+      className="mx-auto"
       style={{
         minHeight: "100vh",
       }}
@@ -43,7 +44,7 @@ const MainLayout = ({ sideBar = false }: { sideBar?: boolean }) => {
             )}
           </div>
         </Header>
-        <Content style={{ minHeight: "100vh", margin: "20px 35px 0" }}>
+        <Content style={{ minHeight: "100vh", margin: "20px 5px 0" }}>
           <div>
             <Outlet />
           </div>

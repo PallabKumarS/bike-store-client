@@ -14,7 +14,8 @@ const { Meta } = Card;
 
 const ProductCard = ({ product }: ProductCardProps) => (
   <Card
-    style={{ width: 300 }}
+    className="mx-auto"
+    style={{ width: 300, zIndex: 0 }}
     cover={
       <img
         alt="example"
