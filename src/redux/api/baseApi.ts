@@ -9,8 +9,8 @@ import {
 } from "@reduxjs/toolkit/query/react";
 import { RootState } from "../store";
 import { logout, setUser } from "../features/auth/authSlice";
-import { toast } from "sonner";
 import { verifyToken } from "../../utils/verifyToken";
+import Notify from "@/components/ui/Notify";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: "http://localhost:5000/api",
@@ -36,14 +36,22 @@ const baseQueryWithRefreshToken: BaseQueryFn<
   const toastId = (api.getState() as RootState).auth.loginToastId;
 
   if (result?.error?.status === 404) {
-    toast.error((result?.error?.data as { message: string })?.message, {
-      id: toastId as string,
+    Notify({
+      destroyId: toastId as string,
+      toastId: "2",
+      type: "error",
+      message:
+        (result?.error?.data as { message: string })?.message || "Not Found",
     });
   }
 
   if (result?.error?.status === 403) {
-    toast.error((result?.error?.data as { message: string })?.message, {
-      id: toastId as string,
+    Notify({
+      destroyId: toastId as string,
+      toastId: "2",
+      type: "error",
+      message:
+        (result?.error?.data as { message: string })?.message || "Not Found",
     });
   }
 

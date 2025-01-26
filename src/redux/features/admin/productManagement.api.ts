@@ -15,7 +15,7 @@ const productManagementApi = baseApi.injectEndpoints({
           });
 
         return {
-          url: "/academic-semesters",
+          url: "/products",
           method: "GET",
           params,
         };
@@ -41,4 +41,5 @@ const productManagementApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetAllProductsQuery } = productManagementApi;
+export const { useGetAllProductsQuery, useCreateProductMutation } =
+  productManagementApi;

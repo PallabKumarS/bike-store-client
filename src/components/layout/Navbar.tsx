@@ -18,7 +18,7 @@ const Navbar = () => {
       <Menu
         theme="dark"
         mode="horizontal"
-        defaultSelectedKeys={["Home"]}
+        defaultSelectedKeys={[""]}
         items={navItems}
         style={{
           minWidth: "60%",

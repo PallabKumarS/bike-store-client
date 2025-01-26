@@ -2,7 +2,6 @@ import { TUserPaths } from "../types/route.type";
 import Home from "../pages/Home";
 import AllProducts from "../pages/user/AllProducts";
 import Login from "../pages/Login";
-import Register from "../pages/Register";
 import ProductDetails from "../pages/user/ProductDetails";
 import Order from "../pages/user/Order";
 
@@ -31,11 +30,6 @@ const mainRoutes: TUserPaths[] = [
     name: "Login",
     path: "login",
     element: <Login />,
-  },
-  {
-    name: "Signup",
-    path: "signup",
-    element: <Register />,
   },
 ];
 

@@ -7,38 +7,51 @@ import {
   selectCurrentToken,
 } from "../../redux/features/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import Sidebar from "./Sidebar";
 
-const MainLayout = () => {
+const MainLayout = ({ sideBar = false }: { sideBar?: boolean }) => {
   const token = useAppSelector(selectCurrentToken);
   const dispatch = useAppDispatch();
 
   return (
-    <Layout className="h-full">
-      <Header className="" style={{}}>
-        <div className="flex justify-center items-center md:justify-around gap-2">
-          <h1 className="text-xl font-bold text-white text-center">
-            Bike Store
-          </h1>
-          <Navbar />
-          {token ? (
-            <Button danger onClick={() => dispatch(logout())}>
-              Logout
-            </Button>
-          ) : (
-            <NavLink to="/login">
-              <Button type="primary">Login</Button>
-            </NavLink>
-          )}
-        </div>
-      </Header>
-      <Content style={{ height: "100%" }}>
-        <div>
-          <Outlet />
-        </div>
-      </Content>
-      <Footer style={{ textAlign: "center" }}>
-        Ant Design ©{new Date().getFullYear()} Created by Ant UED
-      </Footer>
+    <Layout
+      style={{
+        minHeight: "100vh",
+      }}
+    >
+      {sideBar && <Sidebar />}
+      <Layout>
+        <Header className="" style={{}}>
+          <div className="flex justify-center items-center md:justify-around gap-2">
+            {!sideBar && (
+              <NavLink
+                to="/"
+                className="text-xl font-bold text-white text-center"
+              >
+                Bike Store
+              </NavLink>
+            )}
+            <Navbar />
+            {token ? (
+              <Button danger onClick={() => dispatch(logout())}>
+                Logout
+              </Button>
+            ) : (
+              <NavLink to="/login">
+                <Button type="primary">Login</Button>
+              </NavLink>
+            )}
+          </div>
+        </Header>
+        <Content style={{ minHeight: "100vh", margin: "20px 35px 0" }}>
+          <div>
+            <Outlet />
+          </div>
+        </Content>
+        <Footer style={{ textAlign: "center" }}>
+          Ant Design ©{new Date().getFullYear()} Created by Ant UED
+        </Footer>
+      </Layout>
     </Layout>
   );
 };

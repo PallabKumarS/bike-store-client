@@ -10,11 +10,7 @@ const navRouteGenerator = (
   const navItems: TSidebarRoute[] = routes
     .filter((route) => {
       // Exclude "Orders", "Product Details", and "Login" always
-      if (["Orders", "Product Details", "Login"].includes(route.name)) {
-        return false;
-      }
-      // Exclude "Signup" if token is present
-      if (token && route.name === "Signup") {
+      if (["Orders", "Product Details", "Login", "Home"].includes(route.name)) {
         return false;
       }
       return true;

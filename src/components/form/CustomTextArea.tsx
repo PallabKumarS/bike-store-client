@@ -1,23 +1,20 @@
-import { Form, Select } from "antd";
+import { Form } from "antd";
+import TextArea from "antd/es/input/TextArea";
 import { Controller } from "react-hook-form";
 
-type TSelectProps = {
-  label: string;
+type TInputProps = {
   name: string;
-  options: { label: string; value: string; disabled?: boolean }[];
+  label?: string;
   required?: boolean;
   disabled?: boolean;
-  mode?: string;
 };
 
-const CustomSelect = ({
-  label,
+const CustomTextArea = ({
   name,
-  options,
+  label,
   required = false,
   disabled,
-  mode,
-}: TSelectProps) => {
+}: TInputProps) => {
   return (
     <Controller
       name={name}
@@ -28,7 +25,10 @@ const CustomSelect = ({
               {label}
             </span>
           }
-          style={{ fontWeight: "bold", marginBottom: "10px" }}
+          style={{
+            marginBottom: "10px",
+            fontWeight: "bold",
+          }}
           rules={[
             {
               required: required,
@@ -36,16 +36,14 @@ const CustomSelect = ({
             },
           ]}
         >
-          <Select
+          <TextArea
             {...field}
-            mode={mode ? "multiple" : undefined}
-            id={name}
             variant="filled"
-            style={{ width: "100%" }}
-            options={options}
+            id={name}
+            {...field}
             size="large"
             disabled={disabled}
-            placeholder={label}
+            placeholder={`Enter ${label}`}
           />
           {error && <small style={{ color: "red" }}>{error.message}</small>}
         </Form.Item>
@@ -54,4 +52,4 @@ const CustomSelect = ({
   );
 };
 
-export default CustomSelect;
+export default CustomTextArea;
