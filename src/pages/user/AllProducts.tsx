@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { useGetAllProductsQuery } from "@/redux/features/admin/productManagement.api";
+import { useGetAllProductsQuery } from "@/redux/features/product/product.api";
 import { TQueryParams } from "@/types/global.type";
 import { useState } from "react";
 import { TProduct } from "@/types/product.type";
@@ -8,7 +7,7 @@ import Search from "antd/es/input/Search";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import FilterForm from "@/components/form/FilterForm";
 import LoadingSkeleton from "@/components/ui/LoadingSkeleton";
-import { Button, Dropdown, Pagination } from "antd";
+import { Button, Dropdown, Empty, Pagination, Typography } from "antd";
 import { FilterOutlined } from "@ant-design/icons";
 import { HomeOutlined } from "@ant-design/icons";
 import { Breadcrumb } from "antd";
@@ -24,13 +23,14 @@ const AllProducts = () => {
   const user = useAppSelector(selectCurrentUser);
 
   // api hooks
-  const { data: productsData, isFetching } = useGetAllProductsQuery(
-    [...params],
-    {
-      refetchOnMountOrArgChange: true,
-      refetchOnReconnect: true,
-    }
-  );
+  const {
+    data: productsData,
+    isLoading,
+    isFetching,
+  } = useGetAllProductsQuery([...params], {
+    refetchOnMountOrArgChange: true,
+    refetchOnReconnect: true,
+  });
 
   const breadcrumbItems = [
     {
@@ -96,6 +96,10 @@ const AllProducts = () => {
     </div>
   );
 
+  if (isLoading) {
+    <LoadingSkeleton />;
+  }
+
   return (
     <div className="container mx-auto px-4 py-10">
       {/* Header Section */}
@@ -153,9 +157,18 @@ const AllProducts = () => {
         </div>
       ) : (
         <div className="flex flex-wrap space-x-4 space-y-4 gap-6">
-          {productsData?.data?.map((product: TProduct) => (
-            <ProductCard key={product?._id} product={product} />
-          ))}
+          {/* Render products */}
+          {productsData?.data && productsData.data.length > 0 ? (
+            productsData.data.map((product: TProduct) => (
+              <ProductCard key={product?._id} product={product} />
+            ))
+          ) : (
+            <div className="mx-auto flex justify-center items-center h-screen">
+              <Empty
+                description={<Typography.Text>No data found.</Typography.Text>}
+              />
+            </div>
+          )}
         </div>
       )}
 
@@ -165,10 +178,8 @@ const AllProducts = () => {
         total={productsData?.meta?.totalDoc}
         pageSize={productsData?.meta?.limit}
         onChange={(newPage) => setParams([{ name: "page", value: newPage }])}
-        // showSizeChanger
       />
     </div>
   );
 };
-
 export default AllProducts;

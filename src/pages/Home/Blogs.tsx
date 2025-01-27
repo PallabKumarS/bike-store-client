@@ -1,3 +1,4 @@
+import { Image } from "antd";
 import { motion } from "framer-motion";
 
 const Blogs = () => {
@@ -57,7 +58,7 @@ const Blogs = () => {
               whileHover={{ y: -5 }}
               className="bg-white rounded-lg overflow-hidden shadow-lg"
             >
-              <img
+              <Image
                 src={post.image}
                 alt={post.title}
                 className="w-full h-48 object-cover"

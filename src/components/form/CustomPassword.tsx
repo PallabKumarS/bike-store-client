@@ -31,6 +31,7 @@ export default function CustomPassword({
           }
         >
           <Input.Password
+            variant="filled"
             required={required}
             {...field}
             id={name}

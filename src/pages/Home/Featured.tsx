@@ -3,7 +3,7 @@ import { TProduct } from "@/types/product.type";
 import { Button } from "antd";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useGetAllProductsQuery } from "@/redux/features/admin/productManagement.api";
+import { useGetAllProductsQuery } from "@/redux/features/product/product.api";
 
 const Featured = () => {
   const { data: products } = useGetAllProductsQuery(

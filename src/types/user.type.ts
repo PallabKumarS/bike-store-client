@@ -1,4 +1,6 @@
 export type TUserData = {
+  _id: string;
+  __v: number;
   name: string;
   userId: string;
   password: string;

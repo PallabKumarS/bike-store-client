@@ -39,6 +39,7 @@ const CustomInput = ({
           ]}
         >
           <Input
+            variant="filled"
             readOnly={readonly}
             {...field}
             type={type}

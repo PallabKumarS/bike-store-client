@@ -13,7 +13,6 @@ const UserDashboard = () => {
     skip: !token,
   });
 
-  console.log(userData);
 
   if (isFetching) {
     <LoadingSkeleton />;

@@ -10,7 +10,7 @@ import CustomSelect from "@/components/form/CustomSelect";
 import { categoryOptions } from "@/components/constants/products.constants";
 import CustomTextArea from "@/components/form/CustomTextArea";
 import Notify from "@/components/ui/Notify";
-import { useCreateProductMutation } from "@/redux/features/admin/productManagement.api";
+import { useCreateProductMutation } from "@/redux/features/product/product.api";
 import { TResponse } from "@/types/global.type";
 
 const AddProduct: React.FC = () => {
@@ -36,7 +36,6 @@ const AddProduct: React.FC = () => {
 
     try {
       const res = (await createProduct(data)) as TResponse<any>;
-      console.log(res);
 
       if (res?.data) {
         Notify({
@@ -80,7 +79,7 @@ const AddProduct: React.FC = () => {
           },
         }}
       >
-        <CustomForm onSubmit={handleSubmit}>
+        <CustomForm onSubmit={handleSubmit} reset={true}>
           <Row gutter={16}>
             {/* name of bike  */}
             <Col span={12}>

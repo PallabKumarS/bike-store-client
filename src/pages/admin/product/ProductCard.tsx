@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { TProduct } from "@/types/product.type";
-import { Card, Badge, Tooltip, Button, Tag } from "antd";
+import { Card, Badge, Tooltip, Button, Tag, Image } from "antd";
 import { useNavigate } from "react-router-dom";
 import { CiEdit } from "react-icons/ci";
 import { MdOutlineDeleteForever } from "react-icons/md";
@@ -12,7 +12,7 @@ import { motion } from "framer-motion";
 import {
   useDeleteProductMutation,
   useUpdateProductMutation,
-} from "@/redux/features/admin/productManagement.api";
+} from "@/redux/features/product/product.api";
 import Notify from "@/components/ui/Notify";
 import { TResponse } from "@/types/global.type";
 import { useAppSelector } from "@/redux/hooks";
@@ -137,7 +137,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
               transition={{ duration: 0.3 }}
             >
               {/* image here  */}
-              <img
+              <Image
                 src={image}
                 alt={name}
                 className="w-full h-full object-cover"

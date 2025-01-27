@@ -14,7 +14,7 @@ const mainRoutes: TUserPaths[] = [
   },
   {
     name: "All Products",
-    path: "all-products",
+    path: "products",
     element: <AllProducts />,
   },
   {
@@ -24,7 +24,7 @@ const mainRoutes: TUserPaths[] = [
   },
   {
     name: "Checkout",
-    path: "checkout",
+    path: "checkout/:productId",
     element: <Checkout />,
   },
   {

@@ -37,6 +37,7 @@ const CustomSelect = ({
           ]}
         >
           <Select
+            variant="filled"
             {...field}
             mode={mode ? "multiple" : undefined}
             id={name}

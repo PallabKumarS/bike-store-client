@@ -13,6 +13,7 @@ import { verifyToken } from "../../utils/verifyToken";
 import Notify from "@/components/ui/Notify";
 
 const baseQuery = fetchBaseQuery({
+  // baseUrl: "https://pks-bike-store-server.vercel.app/api",
   baseUrl: "http://localhost:5000/api",
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {

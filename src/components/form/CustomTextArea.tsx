@@ -36,6 +36,7 @@ const CustomTextArea = ({
           ]}
         >
           <TextArea
+            variant="filled"
             required={required}
             {...field}
             id={name}

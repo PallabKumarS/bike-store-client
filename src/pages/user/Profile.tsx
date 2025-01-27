@@ -1,4 +1,4 @@
-import { Card, Tag, Divider } from "antd";
+import { Card, Tag, Divider, Image } from "antd";
 import { motion } from "framer-motion";
 import {
   FaEnvelope,
@@ -68,7 +68,7 @@ const Profile = ({ userData }: { userData: TUserData }) => {
           <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/10 rounded-full translate-y-1/2 -translate-x-1/2" />
           <div className="flex items-center gap-8 relative z-10">
             <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-white/30 shadow-xl">
-              <img
+              <Image
                 src="https://images.unsplash.com/photo-1633332755192-727a05c4013d"
                 alt="profile"
                 className="w-full h-full object-cover"

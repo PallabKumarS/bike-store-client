@@ -1,4 +1,4 @@
-import { Card, Row, Col, Typography, Carousel, Button } from "antd";
+import { Card, Row, Col, Typography, Carousel, Button, Image } from "antd";
 import { TeamOutlined, ToolOutlined, RocketOutlined } from "@ant-design/icons";
 import { motion } from "framer-motion";
 import { HomeOutlined } from "@ant-design/icons";
@@ -42,7 +42,7 @@ const About = () => {
         animate={{ opacity: 1, y: 0 }}
         className="relative h-[60vh] mb-16"
       >
-        <img
+        <Image
           src={img4}
           alt="Hero Workshop"
           className="absolute inset-0 w-full h-full object-cover"
@@ -72,21 +72,21 @@ const About = () => {
             className="rounded-lg overflow-hidden"
           >
             <div>
-              <img
+              <Image
                 src={img1}
                 alt="Custom Build"
                 className="h-[400px] w-full object-cover"
               />
             </div>
             <div>
-              <img
+              <Image
                 src={img2}
                 alt="Repair Bay"
                 className="h-[400px] w-full object-cover"
               />
             </div>
             <div>
-              <img
+              <Image
                 src={img3}
                 alt="Paint Shop"
                 className="h-[400px] w-full object-cover"

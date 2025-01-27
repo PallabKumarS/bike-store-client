@@ -4,9 +4,9 @@ import {
   useDeleteProductMutation,
   useGetSingleProductQuery,
   useUpdateProductMutation,
-} from "@/redux/features/admin/productManagement.api";
-import { useParams } from "react-router-dom";
-import { Breadcrumb, Tag, Divider, Button } from "antd";
+} from "@/redux/features/product/product.api";
+import { useNavigate, useParams } from "react-router-dom";
+import { Breadcrumb, Tag, Divider, Button, Image } from "antd";
 import { motion } from "framer-motion";
 import { HomeOutlined, TagOutlined } from "@ant-design/icons";
 import { NavLink } from "react-router-dom";
@@ -17,13 +17,14 @@ import { TResponse } from "@/types/global.type";
 import { useState } from "react";
 import { useAppSelector } from "@/redux/hooks";
 import { selectCurrentUser } from "@/redux/features/auth/authSlice";
-import OrderModal from "@/pages/user/OrderModal";
 
 const ProductDetails = () => {
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
   const { productId } = useParams();
   const user = useAppSelector(selectCurrentUser);
+  const navigate = useNavigate();
 
   //   api hooks
   const [deleteProduct] = useDeleteProductMutation();
@@ -166,7 +167,7 @@ const ProductDetails = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <img
+          <Image
             src={product?.data?.image}
             alt={product?.data?.name}
             className="w-full h-[500px] object-cover rounded-2xl shadow-2xl"
@@ -263,15 +264,13 @@ const ProductDetails = () => {
           ) : (
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               {/* <NavLink to="/checkout"> */}
-                <Button
-                  type="primary"
-                  size="large"
-                  onClick={() => {
-                    setShowModal(true);
-                  }}
-                >
-                  Buy Now
-                </Button>
+              <Button
+                type="primary"
+                size="large"
+                onClick={() => navigate(`/checkout/${product?.data?._id}`)}
+              >
+                Buy Now
+              </Button>
               {/* </NavLink> */}
             </motion.div>
           )}
@@ -279,24 +278,15 @@ const ProductDetails = () => {
       </div>
 
       {/* edit modal here  */}
-      {user?.role === "admin"
-        ? showModal && (
-            <ProductModal
-              data={product?.data}
-              isModalOpen={showModal}
-              onCancel={() => setShowModal(false)}
-              onOk={handleEdit}
-              isLoading={isLoading}
-            />
-          )
-        : showModal && (
-            <OrderModal
-              user={user}
-              product={product?.data}
-              onCancel={() => setShowModal(false)}
-              showModal={showModal}
-            />
-          )}
+      {user?.role === "admin" && showModal && (
+        <ProductModal
+          data={product?.data}
+          isModalOpen={showModal}
+          onCancel={() => setShowModal(false)}
+          onOk={handleEdit}
+          isLoading={isLoading}
+        />
+      )}
     </div>
   );
 };

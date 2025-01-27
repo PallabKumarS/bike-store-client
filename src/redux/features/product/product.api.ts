@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import { TProduct } from "@/types/product.type";
 import { TQueryParams, TResponseRedux } from "../../../types/global.type";
 import baseApi from "../../api/baseApi";
 
-const productManagementApi = baseApi.injectEndpoints({
+const productApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     // get all products query
     getAllProducts: builder.query({
@@ -21,7 +21,7 @@ const productManagementApi = baseApi.injectEndpoints({
         };
       },
       providesTags: ["products"],
-      transformResponse: (response: TResponseRedux<any>) => {
+      transformResponse: (response: TResponseRedux<TProduct[]>) => {
         return {
           data: response.data,
           meta: response.meta,
@@ -75,4 +75,4 @@ export const {
   useDeleteProductMutation,
   useUpdateProductMutation,
   useGetSingleProductQuery,
-} = productManagementApi;
+} = productApi;
