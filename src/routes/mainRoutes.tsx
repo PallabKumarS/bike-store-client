@@ -1,10 +1,10 @@
 import { TUserPaths } from "../types/route.type";
-import Home from "../pages/Home";
+import Home from "../pages/Home/Home";
 import AllProducts from "../pages/user/AllProducts";
 import Login from "../pages/Login";
 import ProductDetails from "../pages/admin/product/ProductDetails";
-import Order from "../pages/user/Order";
 import About from "@/pages/About";
+import Checkout from "../pages/user/Checkout";
 
 const mainRoutes: TUserPaths[] = [
   {
@@ -23,9 +23,9 @@ const mainRoutes: TUserPaths[] = [
     element: <ProductDetails />,
   },
   {
-    name: "Orders",
-    path: "orders",
-    element: <Order />,
+    name: "Checkout",
+    path: "checkout",
+    element: <Checkout />,
   },
   {
     name: "Login",

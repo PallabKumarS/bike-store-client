@@ -1,19 +1,52 @@
 import { Card, Row, Col, Typography, Carousel, Button } from "antd";
 import { TeamOutlined, ToolOutlined, RocketOutlined } from "@ant-design/icons";
 import { motion } from "framer-motion";
+import { HomeOutlined } from "@ant-design/icons";
+import { Breadcrumb } from "antd";
+import { NavLink } from "react-router-dom";
+import img1 from "@/assets/workshop 1.jpg";
+import img2 from "@/assets/workshop 2.jpg";
+import img3 from "@/assets/workshop 3.webp";
+import img4 from "@/assets/workshop 4.jpg";
 
 const { Title, Paragraph } = Typography;
 
 const About = () => {
+  const breadcrumbItems = [
+    {
+      title: (
+        <NavLink to="/">
+          <HomeOutlined /> Home
+        </NavLink>
+      ),
+    },
+    {
+      title: <NavLink to="/about">About</NavLink>,
+    },
+  ];
+
   return (
     <div className="container mx-auto px-4 py-8">
+      {/* breadcrumb here  */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="mb-8"
+      >
+        <Breadcrumb items={breadcrumbItems} />
+      </motion.div>
+
       {/* Dynamic Hero Section with Parallax Effect */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="relative h-[60vh] mb-16"
       >
-        <div className="absolute inset-0 bg-[url('/bikes-workshop.jpg')] bg-fixed bg-cover bg-center" />
+        <img
+          src={img4}
+          alt="Hero Workshop"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
         <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
           <div className="text-center text-white">
             <motion.h1
@@ -29,6 +62,7 @@ const About = () => {
           </div>
         </div>
       </motion.div>
+
       {/* Interactive Workshop Showcase */}
       <Row gutter={[16, 16]} className="mb-16">
         <Col xs={24} lg={12}>
@@ -39,21 +73,21 @@ const About = () => {
           >
             <div>
               <img
-                src="/workshop-1.jpg"
+                src={img1}
                 alt="Custom Build"
                 className="h-[400px] w-full object-cover"
               />
             </div>
             <div>
               <img
-                src="/workshop-2.jpg"
+                src={img2}
                 alt="Repair Bay"
                 className="h-[400px] w-full object-cover"
               />
             </div>
             <div>
               <img
-                src="/workshop-3.jpg"
+                src={img3}
                 alt="Paint Shop"
                 className="h-[400px] w-full object-cover"
               />

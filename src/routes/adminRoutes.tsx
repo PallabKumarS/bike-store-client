@@ -3,6 +3,7 @@ import ProductManagement from "../pages/admin/product/ProductManagement";
 import UserManagement from "../pages/admin/UserManagement";
 import ProductDetails from "../pages/admin/product/ProductDetails";
 import { TUserPaths } from "../types/route.type";
+import OrderManagement from "@/pages/admin/OrderManagement";
 
 const adminPaths: TUserPaths[] = [
   {
@@ -10,8 +11,6 @@ const adminPaths: TUserPaths[] = [
     path: "dashboard",
     element: <AdminDashboard />,
   },
-
-  // user management
 
   {
     name: "User Management",
@@ -27,6 +26,11 @@ const adminPaths: TUserPaths[] = [
     name: "Product Details",
     path: "products/:productId",
     element: <ProductDetails />,
+  },
+  {
+    name: "Order Management",
+    path: "orders",
+    element: <OrderManagement />,
   },
 ];
 

@@ -7,6 +7,7 @@ type TInputProps = {
   label?: string;
   required?: boolean;
   disabled?: boolean;
+  readonly?: boolean;
 };
 
 const CustomInput = ({
@@ -15,6 +16,7 @@ const CustomInput = ({
   label,
   required = false,
   disabled,
+  readonly = false,
 }: TInputProps) => {
   return (
     <Controller
@@ -37,6 +39,7 @@ const CustomInput = ({
           ]}
         >
           <Input
+            readOnly={readonly}
             {...field}
             type={type}
             id={name}

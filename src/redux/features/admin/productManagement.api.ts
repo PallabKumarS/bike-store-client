@@ -57,6 +57,15 @@ const productManagementApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["products"],
     }),
+
+    // get single product query
+    getSingleProduct: builder.query({
+      query: (id) => ({
+        url: `/products/${id}`,
+        method: "GET",
+      }),
+      providesTags: ["products"],
+    }),
   }),
 });
 
@@ -65,4 +74,5 @@ export const {
   useCreateProductMutation,
   useDeleteProductMutation,
   useUpdateProductMutation,
+  useGetSingleProductQuery,
 } = productManagementApi;

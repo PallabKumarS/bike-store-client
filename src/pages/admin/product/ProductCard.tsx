@@ -15,6 +15,8 @@ import {
 } from "@/redux/features/admin/productManagement.api";
 import Notify from "@/components/ui/Notify";
 import { TResponse } from "@/types/global.type";
+import { useAppSelector } from "@/redux/hooks";
+import { selectCurrentUser } from "@/redux/features/auth/authSlice";
 
 type ProductCardProps = {
   product: TProduct;
@@ -24,6 +26,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const user = useAppSelector(selectCurrentUser);
 
   //   api hooks
   const [deleteProduct] = useDeleteProductMutation();
@@ -200,40 +203,45 @@ const ProductCard = ({ product }: ProductCardProps) => {
             </motion.div>,
 
             // edit button here
-            <motion.div
-              variants={buttonVariants}
-              whileHover="hover"
-              whileTap="tap"
-            >
-              <Tooltip title="Edit Product" placement="top">
-                <Button
-                  type="text"
-                  icon={
-                    <CiEdit className="text-2xl text-blue-500 hover:text-blue-600" />
-                  }
-                  onClick={() => setShowModal(true)}
-                  className="action-button"
-                />
-              </Tooltip>
-            </motion.div>,
+            user?.role === "admin" && (
+              <motion.div
+                variants={buttonVariants}
+                whileHover="hover"
+                whileTap="tap"
+              >
+                <Tooltip title="Edit Product" placement="top">
+                  <Button
+                    type="text"
+                    icon={
+                      <CiEdit className="text-2xl text-blue-500 hover:text-blue-600" />
+                    }
+                    onClick={() => setShowModal(true)}
+                    className="action-button"
+                  />
+                </Tooltip>
+              </motion.div>
+            ),
 
             // delete button here
-            <motion.div
-              variants={buttonVariants}
-              whileHover="hover"
-              whileTap="tap"
-            >
-              <Tooltip title="Delete Product" placement="top">
-                <Button
-                  type="text"
-                  icon={
-                    <MdOutlineDeleteForever className="text-2xl text-red-500 hover:text-red-600" />
-                  }
-                  onClick={() => handleDelete(_id)}
-                  className="action-button"
-                />
-              </Tooltip>
-            </motion.div>,
+
+            user?.role === "admin" && (
+              <motion.div
+                variants={buttonVariants}
+                whileHover="hover"
+                whileTap="tap"
+              >
+                <Tooltip title="Delete Product" placement="top">
+                  <Button
+                    type="text"
+                    icon={
+                      <MdOutlineDeleteForever className="text-2xl text-red-500 hover:text-red-600" />
+                    }
+                    onClick={() => handleDelete(_id)}
+                    className="action-button"
+                  />
+                </Tooltip>
+              </motion.div>
+            ),
           ]}
         >
           {/* name and description here  */}
@@ -293,7 +301,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
       </Badge.Ribbon>
 
       {/* edit modal here  */}
-      {showModal && (
+      {user?.role === "admin" && showModal && (
         <ProductModal
           isLoading={isLoading}
           isModalOpen={showModal}

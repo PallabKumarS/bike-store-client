@@ -9,7 +9,13 @@ import ProductCard from "./ProductCard";
 import Search from "antd/es/input/Search";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import FilterForm from "@/components/form/FilterForm";
+import LoadingSkeleton from "@/components/ui/LoadingSkeleton";
 import { Button, Dropdown } from "antd";
+import { FilterOutlined } from "@ant-design/icons";
+import { HomeOutlined } from "@ant-design/icons";
+import { Breadcrumb } from "antd";
+import { NavLink } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const ProductManagement = () => {
   const [params, setParams] = useState<TQueryParams[]>([]);
@@ -25,8 +31,21 @@ const ProductManagement = () => {
     }
   );
 
+  const breadcrumbItems = [
+    {
+      title: (
+        <NavLink to="/">
+          <HomeOutlined /> Home
+        </NavLink>
+      ),
+    },
+    {
+      title: <NavLink to="/admin/products">Products</NavLink>,
+    },
+  ];
+
   const handleFilter: SubmitHandler<FieldValues> = (data) => {
-    let newParams: any[] = [];
+    const newParams: any[] = [];
 
     if (data?.category?.length > 0) {
       newParams.push({
@@ -57,40 +76,73 @@ const ProductManagement = () => {
     }
 
     setParams([...newParams]);
-    newParams = [];
   };
 
+  const FilterDropdown = ({
+    onApplyFilters,
+  }: {
+    onApplyFilters: SubmitHandler<FieldValues>;
+  }) => (
+    <div className="bg-white p-6 rounded-lg shadow-lg min-w-[300px]">
+      <FilterForm onApplyFilters={onApplyFilters} />
+    </div>
+  );
+
   return (
-    <div className="container mx-auto py-10">
-      <div className="flex flex-col md:flex-row justify-between items-center gap-5 mb-10">
+    <div className="container mx-auto px-4 py-10">
+      {/* Header Section */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="mb-8"
+      >
+        <Breadcrumb items={breadcrumbItems} />
+      </motion.div>
+
+      <div className="flex flex-col lg:flex-row justify-between items-center gap-5 mb-10">
         <h1 className="text-2xl font-semibold">All Products</h1>
 
-        {/* search here  */}
-        <Search
-          style={{ width: 300 }}
-          placeholder="input search text"
-          enterButton="Search"
-          size="large"
-          loading={isFetching}
-          onSearch={(value) => {
-            setParams([{ name: "searchTerm", value }]);
-          }}
-        />
+        <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+          <Search
+            className="w-full sm:w-[300px]"
+            placeholder="Search products..."
+            enterButton="Search"
+            size="large"
+            loading={isFetching}
+            onSearch={(value) => {
+              setParams([{ name: "searchTerm", value }]);
+            }}
+          />
 
-        {/* add product here  */}
-        <AddProduct />
-      </div>
-      {/* filters here  */}
-      <div className="w-96 text-center mx-auto my-5">
-        <FilterForm onApplyFilters={handleFilter} />
+          <div className="flex gap-4 w-full sm:w-auto">
+            <Dropdown
+              dropdownRender={() => (
+                <FilterDropdown onApplyFilters={handleFilter} />
+              )}
+              trigger={["click"]}
+              placement="bottomRight"
+            >
+              <Button
+                size="large"
+                icon={<FilterOutlined />}
+                className="flex items-center gap-2 w-full sm:w-auto"
+              >
+                Filters
+              </Button>
+            </Dropdown>
+
+            <AddProduct />
+          </div>
+        </div>
       </div>
 
+      {/* Products Grid */}
       {isFetching ? (
         <div className="flex justify-center items-center h-screen">
-          <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
+          <LoadingSkeleton />
         </div>
       ) : (
-        <div className="md:flex space-y-3 flex-wrap gap-5 justify-center items-center">
+        <div className="flex flex-wrap space-x-4 space-y-4 gap-6">
           {productsData?.data?.map((product: TProduct) => (
             <ProductCard key={product?._id} product={product} />
           ))}
