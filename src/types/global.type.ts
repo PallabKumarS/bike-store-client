@@ -6,7 +6,7 @@ export type TError = {
   data: {
     success: boolean;
     message: string;
-    errorMessages: {
+    errorSources: {
       path: string;
       message: string;
     }[];

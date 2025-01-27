@@ -27,7 +27,6 @@ const CustomTextArea = ({
           }
           style={{
             marginBottom: "10px",
-            fontWeight: "bold",
           }}
           rules={[
             {
@@ -38,7 +37,6 @@ const CustomTextArea = ({
         >
           <TextArea
             {...field}
-            variant="filled"
             id={name}
             {...field}
             size="large"

@@ -38,8 +38,31 @@ const productManagementApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["products"],
     }),
+
+    // delete product mutation
+    deleteProduct: builder.mutation({
+      query: (id) => ({
+        url: `/products/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["products"],
+    }),
+
+    // update product mutation
+    updateProduct: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/products/${id}`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["products"],
+    }),
   }),
 });
 
-export const { useGetAllProductsQuery, useCreateProductMutation } =
-  productManagementApi;
+export const {
+  useGetAllProductsQuery,
+  useCreateProductMutation,
+  useDeleteProductMutation,
+  useUpdateProductMutation,
+} = productManagementApi;

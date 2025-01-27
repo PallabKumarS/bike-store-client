@@ -22,7 +22,7 @@ const CustomFooter = () => {
 
   return (
     <footer className="bg-gradient-to-b from-gray-50 to-gray-100">
-      <div className="container mx-auto px-4 py-12">
+      <div className=" mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

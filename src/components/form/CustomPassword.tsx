@@ -31,7 +31,6 @@ export default function CustomPassword({
           }
         >
           <Input.Password
-            variant="filled"
             {...field}
             id={name}
             size="large"

@@ -40,7 +40,6 @@ const CustomSelect = ({
             {...field}
             mode={mode ? "multiple" : undefined}
             id={name}
-            variant="filled"
             style={{ width: "100%" }}
             options={options}
             size="large"

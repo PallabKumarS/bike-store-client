@@ -11,9 +11,11 @@ type ProductModalProps = {
   onOk: () => void;
   onCancel: () => void;
   data: TProduct;
+  isLoading: boolean;
 };
 
 const ProductModal = ({
+  isLoading,
   isModalOpen,
   onOk,
   onCancel,
@@ -21,6 +23,7 @@ const ProductModal = ({
 }: ProductModalProps) => {
   return (
     <Modal
+      confirmLoading={isLoading}
       title="Edit Product"
       open={isModalOpen}
       onCancel={onCancel}
@@ -36,7 +39,7 @@ const ProductModal = ({
     >
       <CustomForm onSubmit={onOk} defaultValues={data}>
         <Row gutter={16}>
-          {/* name of bicycle  */}
+          {/* name of bike  */}
           <Col span={12}>
             <CustomInput name="name" label="Name of Bike" />
           </Col>

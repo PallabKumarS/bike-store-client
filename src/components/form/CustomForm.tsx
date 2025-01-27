@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Form } from "antd";
 import {
@@ -10,6 +11,7 @@ import {
 type TFormProps = {
   onSubmit: SubmitHandler<FieldValues>;
   children: React.ReactNode;
+  reset?: boolean;
 } & TFormConfig;
 
 type TFormConfig = {
@@ -18,6 +20,7 @@ type TFormConfig = {
 };
 
 const CustomForm = ({
+  reset = false,
   onSubmit,
   children,
   defaultValues,
@@ -37,7 +40,7 @@ const CustomForm = ({
 
   const submitHandler: SubmitHandler<FieldValues> = (data) => {
     onSubmit(data);
-    // methods.reset();
+    reset && methods.reset();
   };
 
   return (

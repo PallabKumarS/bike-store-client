@@ -2,7 +2,7 @@ import { TUserPaths } from "../types/route.type";
 import Home from "../pages/Home";
 import AllProducts from "../pages/user/AllProducts";
 import Login from "../pages/Login";
-import ProductDetails from "../pages/user/ProductDetails";
+import ProductDetails from "../pages/admin/product/ProductDetails";
 import Order from "../pages/user/Order";
 import About from "@/pages/About";
 
@@ -33,10 +33,10 @@ const mainRoutes: TUserPaths[] = [
     element: <Login />,
   },
   {
-    name:'About Us',
-    path: 'about',
-    element: <About />
-  }
+    name: "About Us",
+    path: "about",
+    element: <About />,
+  },
 ];
 
 export default mainRoutes;

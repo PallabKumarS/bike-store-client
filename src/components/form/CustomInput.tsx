@@ -28,7 +28,6 @@ const CustomInput = ({
           }
           style={{
             marginBottom: "10px",
-            fontWeight: "bold",
           }}
           rules={[
             {
@@ -39,7 +38,6 @@ const CustomInput = ({
         >
           <Input
             {...field}
-            variant="filled"
             type={type}
             id={name}
             {...field}

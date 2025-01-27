@@ -1,6 +1,6 @@
-const bicycleCategory = ["Mountain", "Road", "Hybrid", "Electric", "Sport"];
+const bikeCategory = ["Mountain", "Hybrid", "Electric", "Sport"];
 
-export const categoryOptions = bicycleCategory.map((item) => ({
+export const categoryOptions = bikeCategory.map((item) => ({
   label: item,
   value: item,
 }));

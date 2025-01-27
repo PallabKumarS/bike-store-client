@@ -18,7 +18,7 @@ const MainLayout = ({ sideBar = false }: { sideBar?: boolean }) => {
     <Layout
       className="mx-auto"
       style={{
-        minHeight: "100vh",
+        minHeight: "100%",
       }}
     >
       {sideBar && <Sidebar />}
@@ -58,7 +58,7 @@ const MainLayout = ({ sideBar = false }: { sideBar?: boolean }) => {
             <Outlet />
           </div>
         </Content>
-        <Footer style={{ textAlign: "center" }}>
+        <Footer>
           <CustomFooter />
         </Footer>
       </Layout>

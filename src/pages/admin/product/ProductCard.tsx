@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { TProduct } from "@/types/product.type";
-import { Card, Badge, Tooltip, Button } from "antd";
+import { Card, Badge, Tooltip, Button, Tag } from "antd";
 import { useNavigate } from "react-router-dom";
 import { CiEdit } from "react-icons/ci";
 import { MdOutlineDeleteForever } from "react-icons/md";
@@ -7,6 +9,12 @@ import { FaInfoCircle } from "react-icons/fa";
 import { useState } from "react";
 import ProductModal from "./ProductModal";
 import { motion } from "framer-motion";
+import {
+  useDeleteProductMutation,
+  useUpdateProductMutation,
+} from "@/redux/features/admin/productManagement.api";
+import Notify from "@/components/ui/Notify";
+import { TResponse } from "@/types/global.type";
 
 type ProductCardProps = {
   product: TProduct;
@@ -14,16 +22,100 @@ type ProductCardProps = {
 
 const ProductCard = ({ product }: ProductCardProps) => {
   const [showModal, setShowModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  const { name, price, image, description, _id } = product;
+  //   api hooks
+  const [deleteProduct] = useDeleteProductMutation();
+  const [updateProduct] = useUpdateProductMutation();
 
-  const handleEdit = () => {
-    console.log(product);
+  const { name, price, image, description, _id, brand, quantity, category } =
+    product;
+
+  //   handle edit here
+  const handleEdit = async () => {
+    setIsLoading(true);
+    Notify({
+      toastId: "1",
+      type: "loading",
+      message: "Updating product...",
+    });
+
+    try {
+      const res = (await updateProduct({
+        id: _id,
+        data: {
+          name,
+          price,
+          image,
+          description,
+          brand,
+          quantity,
+          category,
+        },
+      })) as TResponse<any>;
+
+      if (res?.data?.success) {
+        Notify({
+          destroyId: "1",
+          toastId: "2",
+          type: "success",
+          message: res?.data?.message || "Product updated successfully",
+        });
+        setShowModal(false);
+        setIsLoading(false);
+      } else {
+        Notify({
+          destroyId: "1",
+          toastId: "2",
+          type: "error",
+          message: res?.error?.data?.message || "Something went wrong",
+        });
+      }
+    } catch (err) {
+      Notify({
+        destroyId: "1",
+        toastId: "2",
+        type: "error",
+        message: "Something went wrong",
+      });
+    }
   };
 
-  const handleDelete = (id: string) => {
-    console.log(id);
+  // handle delete here
+  const handleDelete = async (id: string) => {
+    Notify({
+      toastId: "1",
+      type: "loading",
+      message: "Deleting product...",
+    });
+
+    try {
+      const res = (await deleteProduct(id)) as TResponse<any>;
+      console.log(res);
+      if (res?.data?.success) {
+        Notify({
+          destroyId: "1",
+          toastId: "2",
+          type: "success",
+          message: res?.data?.message || "Product deleted successfully",
+        });
+      } else {
+        Notify({
+          destroyId: "1",
+          toastId: "2",
+          type: "error",
+          message: res?.error?.data?.message || "Something went wrong",
+        });
+      }
+    } catch (err) {
+      Notify({
+        destroyId: "1",
+        toastId: "2",
+        type: "error",
+        message: "Something went wrong",
+      });
+    }
   };
 
   const cardVariants = {
@@ -67,6 +159,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
       whileHover="hover"
       className="card-container"
     >
+      {/* badge with price here  */}
       <Badge.Ribbon text={`$${price}`} color="blue" className="animate-pulse">
         <Card
           hoverable
@@ -77,6 +170,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.3 }}
             >
+              {/* image here  */}
               <img
                 src={image}
                 alt={name}
@@ -85,12 +179,14 @@ const ProductCard = ({ product }: ProductCardProps) => {
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
             </motion.div>
           }
+          //    card actions here
           actions={[
             <motion.div
               variants={buttonVariants}
               whileHover="hover"
               whileTap="tap"
             >
+              {/* view details button  */}
               <Tooltip title="View Details" placement="top">
                 <Button
                   type="text"
@@ -102,6 +198,8 @@ const ProductCard = ({ product }: ProductCardProps) => {
                 />
               </Tooltip>
             </motion.div>,
+
+            // edit button here
             <motion.div
               variants={buttonVariants}
               whileHover="hover"
@@ -118,6 +216,8 @@ const ProductCard = ({ product }: ProductCardProps) => {
                 />
               </Tooltip>
             </motion.div>,
+
+            // delete button here
             <motion.div
               variants={buttonVariants}
               whileHover="hover"
@@ -136,6 +236,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
             </motion.div>,
           ]}
         >
+          {/* name and description here  */}
           <motion.div
             className="px-2"
             initial={{ opacity: 0, y: 20 }}
@@ -149,11 +250,52 @@ const ProductCard = ({ product }: ProductCardProps) => {
               {description}
             </p>
           </motion.div>
+
+          <motion.div
+            className="px-2"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+          >
+            <div className="flex flex-wrap gap-2 mt-4">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                className="flex-shrink-0"
+              >
+                <Tag color="blue" className="flex items-center gap-1">
+                  <span className="font-medium">Brand:</span> {brand}
+                </Tag>
+              </motion.div>
+
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                className="flex-shrink-0"
+              >
+                <Tag color="green" className="flex items-center gap-1">
+                  <span className="font-medium">Category:</span> {category}
+                </Tag>
+              </motion.div>
+
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                className="flex-shrink-0"
+              >
+                <Tag
+                  color={quantity > 0 ? "gold" : "red"}
+                  className="flex items-center gap-1"
+                >
+                  <span className="font-medium">Stock:</span> {quantity}
+                </Tag>
+              </motion.div>
+            </div>
+          </motion.div>
         </Card>
       </Badge.Ribbon>
 
+      {/* edit modal here  */}
       {showModal && (
         <ProductModal
+          isLoading={isLoading}
           isModalOpen={showModal}
           data={product}
           onCancel={() => setShowModal(false)}

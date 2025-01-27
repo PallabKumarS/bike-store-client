@@ -31,7 +31,7 @@ const AddProduct: React.FC = () => {
     Notify({
       toastId: "2",
       type: "loading",
-      message: "Product added successfully!",
+      message: "Creating new product ...",
     });
 
     try {
@@ -82,7 +82,7 @@ const AddProduct: React.FC = () => {
       >
         <CustomForm onSubmit={handleSubmit}>
           <Row gutter={16}>
-            {/* name of bicycle  */}
+            {/* name of bike  */}
             <Col span={12}>
               <CustomInput name="name" label="Name of Bike" />
             </Col>
