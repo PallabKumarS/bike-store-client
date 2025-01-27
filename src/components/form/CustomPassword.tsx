@@ -31,6 +31,7 @@ export default function CustomPassword({
           }
         >
           <Input.Password
+            required={required}
             {...field}
             id={name}
             size="large"

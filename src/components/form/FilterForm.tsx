@@ -1,6 +1,6 @@
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import CustomForm from "./CustomForm";
-import { Button } from "antd";
+import { Button, Col, Row } from "antd";
 import CustomInput from "./CustomInput";
 import CustomSelect from "./CustomSelect";
 import { categoryOptions } from "../constants/products.constants";
@@ -25,8 +25,8 @@ const FilterForm = ({ onApplyFilters }: FilterFormProps) => {
 
         {/* Price Range Fields */}
         <div className="mb-4">
-          <label className="block text-sm font-medium mb-1">Price Range</label>
-          <div className="flex space-x-2">
+          <label className="block text-lg font-medium mb-1">Price Range</label>
+          <div className="md:flex space-x-2">
             {/* min price  */}
             <CustomInput name="minPrice" label="Minimum Price" type="number" />
             {/* max price  */}
@@ -35,16 +35,43 @@ const FilterForm = ({ onApplyFilters }: FilterFormProps) => {
         </div>
 
         {/* In-Stock Field */}
-        <div className="mb-4">
-          <CustomSelect
-            name="inStock"
-            label="In Stock"
-            options={[
-              { value: "true", label: "Available" },
-              { value: "false", label: "Out of Stock" },
-            ]}
-          />
-        </div>
+        <Row gutter={16} className="mb-4">
+          <Col span={12}>
+            <CustomSelect
+              name="inStock"
+              label="Availability"
+              options={[
+                { value: "true", label: "Available" },
+                { value: "false", label: "Out of Stock" },
+              ]}
+            />
+            {/* sort field  */}
+          </Col>
+          <Col span={12}>
+            <CustomSelect
+              label="Sort By"
+              name="sort"
+              options={[
+                {
+                  value: "-price",
+                  label: "Price: High to Low",
+                },
+                {
+                  value: "price",
+                  label: "Price: Low to High",
+                },
+                {
+                  value: "-name",
+                  label: "Name: Z to A",
+                },
+                {
+                  value: "name",
+                  label: "Name: A to Z",
+                },
+              ]}
+            />
+          </Col>
+        </Row>
 
         {/* Submit Button */}
         <Button

@@ -1,8 +1,19 @@
+import Banner from "./Banner";
+import Blogs from "./Blogs";
+import Featured from "./Featured";
+import { motion } from "framer-motion";
+
 const Home = () => {
   return (
-    <div>
-      <h1>This is Home Component</h1>
-    </div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
+      <Banner />
+      <Featured />
+      <Blogs />
+    </motion.div>
   );
 };
 

@@ -28,7 +28,7 @@ const CustomSelect = ({
               {label}
             </span>
           }
-          style={{ fontWeight: "bold", marginBottom: "10px" }}
+          style={{ fontWeight: "bold", marginBottom: "10px", width: "100%" }}
           rules={[
             {
               required: required,

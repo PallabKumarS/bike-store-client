@@ -1,15 +1,15 @@
-import AdminDashboard from "../pages/admin/AdminDashboard";
-import ProductManagement from "../pages/admin/product/ProductManagement";
+import UserDashboard from "@/pages/user/UserDashboard";
 import UserManagement from "../pages/admin/UserManagement";
 import ProductDetails from "../pages/admin/product/ProductDetails";
 import { TUserPaths } from "../types/route.type";
 import OrderManagement from "@/pages/admin/OrderManagement";
+import AllProducts from "@/pages/user/AllProducts";
 
 const adminPaths: TUserPaths[] = [
   {
     name: "Dashboard",
     path: "dashboard",
-    element: <AdminDashboard />,
+    element: <UserDashboard />,
   },
 
   {
@@ -20,7 +20,7 @@ const adminPaths: TUserPaths[] = [
   {
     name: "Product Management",
     path: "products",
-    element: <ProductManagement />,
+    element: <AllProducts />,
   },
   {
     name: "Product Details",

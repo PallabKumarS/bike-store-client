@@ -8,22 +8,24 @@ import Search from "antd/es/input/Search";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import FilterForm from "@/components/form/FilterForm";
 import LoadingSkeleton from "@/components/ui/LoadingSkeleton";
-import { Button, Dropdown } from "antd";
+import { Button, Dropdown, Pagination } from "antd";
 import { FilterOutlined } from "@ant-design/icons";
 import { HomeOutlined } from "@ant-design/icons";
 import { Breadcrumb } from "antd";
 import { NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
 import ProductCard from "../admin/product/ProductCard";
+import { useAppSelector } from "@/redux/hooks";
+import { selectCurrentUser } from "@/redux/features/auth/authSlice";
+import AddProduct from "../admin/product/AddProduct";
 
 const AllProducts = () => {
   const [params, setParams] = useState<TQueryParams[]>([]);
-  const [page, setPage] = useState<number>(1);
-  const [limit, setLimit] = useState<number>(10);
+  const user = useAppSelector(selectCurrentUser);
 
   // api hooks
   const { data: productsData, isFetching } = useGetAllProductsQuery(
-    [...params, { name: "limit", value: limit }, { name: "page", value: page }],
+    [...params],
     {
       refetchOnMountOrArgChange: true,
       refetchOnReconnect: true,
@@ -74,6 +76,13 @@ const AllProducts = () => {
       });
     }
 
+    if (data?.sort) {
+      newParams.push({
+        name: "sort",
+        value: data?.sort,
+      });
+    }
+
     setParams([...newParams]);
   };
 
@@ -106,6 +115,8 @@ const AllProducts = () => {
             className="w-full sm:w-[300px]"
             placeholder="Search products..."
             enterButton="Search"
+            allowClear
+            onClear={() => setParams([{ name: "searchTerm", value: "" }])}
             size="large"
             loading={isFetching}
             onSearch={(value) => {
@@ -131,6 +142,8 @@ const AllProducts = () => {
             </Dropdown>
           </div>
         </div>
+
+        {user?.role === "admin" && <AddProduct />}
       </div>
 
       {/* Products Grid */}
@@ -145,6 +158,15 @@ const AllProducts = () => {
           ))}
         </div>
       )}
+
+      <Pagination
+        className="flex justify-center items-center mt-6"
+        current={productsData?.meta?.page}
+        total={productsData?.meta?.totalDoc}
+        pageSize={productsData?.meta?.limit}
+        onChange={(newPage) => setParams([{ name: "page", value: newPage }])}
+        // showSizeChanger
+      />
     </div>
   );
 };

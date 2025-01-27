@@ -10,17 +10,20 @@ import Search from "antd/es/input/Search";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import FilterForm from "@/components/form/FilterForm";
 import LoadingSkeleton from "@/components/ui/LoadingSkeleton";
-import { Button, Dropdown } from "antd";
+import { Button, Dropdown, Pagination } from "antd";
 import { FilterOutlined } from "@ant-design/icons";
 import { HomeOutlined } from "@ant-design/icons";
 import { Breadcrumb } from "antd";
 import { NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useAppSelector } from "@/redux/hooks";
+import { selectCurrentUser } from "@/redux/features/auth/authSlice";
 
 const ProductManagement = () => {
   const [params, setParams] = useState<TQueryParams[]>([]);
   const [page, setPage] = useState<number>(1);
   const [limit, setLimit] = useState<number>(10);
+  const user = useAppSelector(selectCurrentUser);
 
   // api hooks
   const { data: productsData, isFetching } = useGetAllProductsQuery(
@@ -75,6 +78,13 @@ const ProductManagement = () => {
       });
     }
 
+    if (data?.sort) {
+      newParams.push({
+        name: "sort",
+        value: data?.sort,
+      });
+    }
+
     setParams([...newParams]);
   };
 
@@ -102,11 +112,14 @@ const ProductManagement = () => {
       <div className="flex flex-col lg:flex-row justify-between items-center gap-5 mb-10">
         <h1 className="text-2xl font-semibold">All Products</h1>
 
+        {/* filter here  */}
         <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
           <Search
             className="w-full sm:w-[300px]"
             placeholder="Search products..."
             enterButton="Search"
+            allowClear={true}
+            onClear={() => setParams([{ name: "searchTerm", value: "" }])}
             size="large"
             loading={isFetching}
             onSearch={(value) => {
@@ -131,7 +144,7 @@ const ProductManagement = () => {
               </Button>
             </Dropdown>
 
-            <AddProduct />
+            {user?.role === "admin" && <AddProduct />}
           </div>
         </div>
       </div>
@@ -148,6 +161,14 @@ const ProductManagement = () => {
           ))}
         </div>
       )}
+
+      <Pagination
+        current={page}
+        total={productsData?.meta?.totalDoc}
+        pageSize={productsData?.meta?.limit}
+        onChange={(newPage) => setPage(newPage)}
+        // showSizeChanger
+      />
     </div>
   );
 };

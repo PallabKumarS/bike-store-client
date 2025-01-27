@@ -17,20 +17,21 @@ const Sidebar = () => {
 
   const user = useAppSelector(selectCurrentUser) as TUser | null;
 
-  switch (user?.role || "admin") {
+  switch (user?.role || "customer") {
     case "admin":
       sidebarRoutes = sidebarRoutesGenerator(adminPaths, "admin");
       break;
     case "customer":
-      sidebarRoutes?.push({
-        key: "dashboard",
-        label: <NavLink to={"/customer/dashboard"}>Dashboard</NavLink>,
-      });
+      sidebarRoutes = [
+        {
+          key: "dashboard",
+          label: <NavLink to={"/customer/dashboard"}>Dashboard</NavLink>,
+        },
+      ];
       break;
     default:
       sidebarRoutes = [];
   }
-
 
   return (
     <Sider

@@ -87,16 +87,16 @@ const Login = () => {
     try {
       const res = (await register(data)) as TResponse<any>;
 
-
       if (res.data?.success) {
         Notify({
-          destroyId: "2",
+          destroyId: "1",
           toastId: "2",
           type: "success",
           message: res?.data?.message,
         });
       } else {
         Notify({
+          destroyId: "1",
           toastId: "2",
           type: "error",
           message: res.error?.data?.message || "An error occurred",
