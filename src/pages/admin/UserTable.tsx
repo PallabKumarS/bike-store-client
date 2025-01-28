@@ -17,7 +17,7 @@ import {
   useDeleteUserMutation,
 } from "@/redux/features/user/user.api";
 import Notify from "@/components/ui/Notify";
-import { TMeta, TResponse } from "@/types/global.type";
+import { TError, TMeta, TResponse } from "@/types/global.type";
 
 type TTableProps = {
   data?: {
@@ -223,12 +223,12 @@ const UserTable = ({ isFetching, data, setParams }: TTableProps) => {
           message: res?.error?.data?.message || "Something went wrong!",
         });
       }
-    } catch (error) {
+    } catch (err: TError | any) {
       Notify({
         destroyId: "1",
         toastId: "2",
         type: "error",
-        message: "Something went wrong!",
+        message: err?.data?.message || "An error occurred",
       });
     }
   };
@@ -258,12 +258,12 @@ const UserTable = ({ isFetching, data, setParams }: TTableProps) => {
           message: res?.error?.data?.message || "Something went wrong!",
         });
       }
-    } catch (error) {
+    } catch (err: any) {
       Notify({
         destroyId: "1",
         toastId: "2",
         type: "error",
-        message: "Something went wrong!",
+        message: err?.data?.message || "An error occurred",
       });
     }
   };

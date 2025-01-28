@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Card, Tag, Divider, Image } from "antd";
 import { motion } from "framer-motion";
 import {
@@ -26,7 +27,6 @@ const Profile = ({ userData }: { userData: TUserData }) => {
     });
 
     try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const res = (await changePassword(data)) as TResponse<any>;
       console.log(res);
       if (res.data) {
@@ -41,16 +41,15 @@ const Profile = ({ userData }: { userData: TUserData }) => {
           destroyId: "1",
           toastId: "2",
           type: "error",
-          message: res?.error?.data?.message || "Password Change Failed",
+          message: res?.error?.data?.message || "Something went wrong!",
         });
       }
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (err) {
+    } catch (err: any) {
       Notify({
         destroyId: "1",
         toastId: "2",
         type: "error",
-        message: "Password Change Failed",
+        message: err?.data?.message || "An error occurred",
       });
     }
   };

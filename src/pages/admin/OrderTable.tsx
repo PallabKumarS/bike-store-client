@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button, Dropdown, Pagination, Space, Table, Tag } from "antd";
 import { TOrder } from "@/types/order.type";
 import type { ColumnsType } from "antd/es/table";
@@ -15,7 +16,6 @@ type TTableProps = {
     meta?: TMeta;
   };
   isFetching: boolean;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   setParams: any;
   user: TUser | null;
 };
@@ -216,7 +216,6 @@ const OrderTable = ({ data, setParams, isFetching, user }: TTableProps) => {
       const res = (await changeOrderStatus({
         id: orderId,
         status,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       })) as TResponse<any>;
 
       if (res?.data?.success) {
@@ -231,16 +230,15 @@ const OrderTable = ({ data, setParams, isFetching, user }: TTableProps) => {
           destroyId: "1",
           toastId: "2",
           type: "error",
-          message: res?.error?.data?.message || "Something went wrong!",
+          message: res.error?.data?.message || "Something went wrong",
         });
       }
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (error) {
+    } catch (err: any) {
       Notify({
         destroyId: "1",
         toastId: "2",
         type: "error",
-        message: "Something went wrong!",
+        message: err?.data?.message || "An error occurred",
       });
     }
   };

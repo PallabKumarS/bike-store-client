@@ -23,7 +23,7 @@ import {
   TUser,
 } from "@/redux/features/auth/authSlice";
 import { useAppDispatch } from "@/redux/hooks";
-import { TResponse } from "@/types/global.type";
+import { TError, TResponse } from "@/types/global.type";
 import { verifyToken } from "@/utils/verifyToken";
 import { Button } from "antd";
 import { FieldValues, SubmitHandler } from "react-hook-form";
@@ -47,6 +47,8 @@ const Login = () => {
     try {
       const res = await login(data).unwrap();
 
+      console.log(res);
+
       if (res?.success) {
         const user = verifyToken(res?.data?.accessToken) as TUser;
         dispatch(setUser({ user, token: res.data.accessToken }));
@@ -56,22 +58,22 @@ const Login = () => {
           destroyId: "1",
           toastId: "2",
           type: "success",
-          message: res?.message,
+          message: res?.message || "Logged in successfully",
         });
       } else {
         Notify({
           destroyId: "1",
           toastId: "2",
           type: "error",
-          message: res?.message,
+          message: res?.error?.message || "Something went wrong!",
         });
       }
-    } catch (error) {
+    } catch (err: TError | any) {
       Notify({
         destroyId: "1",
         toastId: "2",
         type: "error",
-        message: "An error occurred",
+        message: err?.data?.message || "An error occurred",
       });
     }
   };
@@ -91,22 +93,22 @@ const Login = () => {
           destroyId: "1",
           toastId: "2",
           type: "success",
-          message: res?.data?.message,
+          message: res?.data?.message || "User created successfully",
         });
       } else {
         Notify({
           destroyId: "1",
           toastId: "2",
           type: "error",
-          message: res.error?.data?.message || "An error occurred",
+          message: res.error?.data?.message || "Something went wrong!",
         });
       }
-    } catch (error) {
+    } catch (err: TError | any) {
       Notify({
         destroyId: "1",
         toastId: "2",
         type: "error",
-        message: "Something went wrong!",
+        message: err?.data?.message || "An error occurred",
       });
     }
   };

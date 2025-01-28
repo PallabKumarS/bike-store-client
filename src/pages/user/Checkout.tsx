@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import CustomForm from "@/components/form/CustomForm";
 import CustomInput from "@/components/form/CustomInput";
 import CustomTextArea from "@/components/form/CustomTextArea";
@@ -87,7 +88,6 @@ const Checkout = () => {
     };
 
     try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const res = (await createOrder(orderData)) as TResponse<any>;
       if (res.data) {
         Notify({
@@ -105,16 +105,15 @@ const Checkout = () => {
           destroyId: "1",
           toastId: "2",
           type: "error",
-          message: res?.error?.data?.message || "Order Failed",
+          message: res?.error?.data?.message || "Something went wrong",
         });
       }
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (err) {
+    } catch (err: any) {
       Notify({
         destroyId: "1",
         toastId: "2",
         type: "error",
-        message: "Order Failed",
+        message: err?.data?.message || "An error occurred",
       });
     }
   };

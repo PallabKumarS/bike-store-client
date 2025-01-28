@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
@@ -53,12 +52,12 @@ const AddProduct: React.FC = () => {
           message: res?.error?.data?.message || "Something went wrong!",
         });
       }
-    } catch (err) {
+    } catch (err: any) {
       Notify({
         destroyId: "1",
         toastId: "2",
         type: "error",
-        message: "Something went wrong!",
+        message: err?.data?.message || "An error occurred",
       });
     }
   };

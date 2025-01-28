@@ -10,10 +10,9 @@ import {
 import { RootState } from "../store";
 import { logout, setUser } from "../features/auth/authSlice";
 import { verifyToken } from "../../utils/verifyToken";
-import Notify from "@/components/ui/Notify";
 
-// export const baseUrl = "https://pks-bike-store-server.vercel.app/api";
-export const baseUrl = "http://localhost:5000/api";
+export const baseUrl = "https://pks-bike-store-server.vercel.app/api";
+// export const baseUrl = "http://localhost:5000/api";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: baseUrl,
@@ -35,28 +34,6 @@ const baseQueryWithRefreshToken: BaseQueryFn<
   DefinitionType
 > = async (args, api, extraOptions): Promise<any> => {
   let result = await baseQuery(args, api, extraOptions);
-
-  const toastId = (api.getState() as RootState).auth.loginToastId;
-
-  if (result?.error?.status === 404) {
-    Notify({
-      destroyId: toastId as string,
-      toastId: "2",
-      type: "error",
-      message:
-        (result?.error?.data as { message: string })?.message || "Not Found",
-    });
-  }
-
-  if (result?.error?.status === 403) {
-    Notify({
-      destroyId: toastId as string,
-      toastId: "2",
-      type: "error",
-      message:
-        (result?.error?.data as { message: string })?.message || "Not Found",
-    });
-  }
 
   if (result?.error?.status === 401) {
     // send refresh token

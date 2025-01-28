@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { TProduct } from "@/types/product.type";
 import { Card, Badge, Tooltip, Button, Tag, Image } from "antd";
@@ -74,15 +73,15 @@ const ProductCard = ({ product }: ProductCardProps) => {
           destroyId: "1",
           toastId: "2",
           type: "error",
-          message: res?.error?.data?.message || "Something went wrong",
+          message: res?.error?.data?.message || "Something went wrong!",
         });
       }
-    } catch (err) {
+    } catch (err: any) {
       Notify({
         destroyId: "1",
         toastId: "2",
         type: "error",
-        message: "Something went wrong",
+        message: err?.data?.message || "An error occurred",
       });
     }
   };
@@ -110,15 +109,15 @@ const ProductCard = ({ product }: ProductCardProps) => {
           destroyId: "1",
           toastId: "2",
           type: "error",
-          message: res?.error?.data?.message || "Something went wrong",
+          message: res?.error?.data?.message || "Something went wrong!",
         });
       }
-    } catch (err) {
+    } catch (err: any) {
       Notify({
         destroyId: "1",
         toastId: "2",
         type: "error",
-        message: "Something went wrong",
+        message: err?.data?.message || "An error occurred",
       });
     }
   };
