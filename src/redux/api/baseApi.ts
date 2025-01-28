@@ -12,9 +12,11 @@ import { logout, setUser } from "../features/auth/authSlice";
 import { verifyToken } from "../../utils/verifyToken";
 import Notify from "@/components/ui/Notify";
 
+export const baseUrl = "https://pks-bike-store-server.vercel.app/api";
+// export const baseUrl = "http://localhost:5000/api",
+
 const baseQuery = fetchBaseQuery({
-  // baseUrl: "https://pks-bike-store-server.vercel.app/api",
-  baseUrl: "http://localhost:5000/api",
+  baseUrl: baseUrl,
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
     // set token in header here
@@ -58,7 +60,7 @@ const baseQueryWithRefreshToken: BaseQueryFn<
 
   if (result?.error?.status === 401) {
     // send refresh token
-    const res = await fetch("http://localhost:5000/api/auth/refresh-token", {
+    const res = await fetch(baseUrl + "/auth/refresh-token", {
       method: "POST",
       credentials: "include",
     });

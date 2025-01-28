@@ -36,7 +36,7 @@ type TTableData = {
   userId: string;
 };
 
-const UserTable = ({ data, isFetching, setParams }: TTableProps) => {
+const UserTable = ({ isFetching, data, setParams }: TTableProps) => {
   // api hooks
   const [changeUserStatus] = useChangeStatusMutation();
   const [deleteUser] = useDeleteUserMutation();
@@ -72,22 +72,65 @@ const UserTable = ({ data, isFetching, setParams }: TTableProps) => {
   ];
 
   const columns: ColumnsType<TTableData> = [
+    // first column
     {
       title: "Name",
       dataIndex: "name",
       key: "name",
-      render: (text) => <span className="font-medium">{text}</span>,
+      render: (text) => (
+        <Tag color="geekblue" className="font-medium">
+          {text}
+        </Tag>
+      ),
+      align: "center",
+      onCell: () => ({
+        style: {
+          textAlign: "center",
+          maxWidth: 0,
+          whiteSpace: "nowrap",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+        },
+      }),
     },
+
+    // second column
     {
       title: "User Id",
       dataIndex: "userId",
       key: "userId",
+      render: (text) => <Tag color="cyan">{text}</Tag>,
+      align: "center",
+      onCell: () => ({
+        style: {
+          textAlign: "center",
+          maxWidth: 0,
+          whiteSpace: "nowrap",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+        },
+      }),
     },
+
+    // third column
     {
       title: "Email",
       dataIndex: "email",
       key: "email",
+      render: (text) => <Tag color="purple">{text}</Tag>,
+      align: "center",
+      onCell: () => ({
+        style: {
+          textAlign: "center",
+          maxWidth: 0,
+          whiteSpace: "nowrap",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+        },
+      }),
     },
+
+    // fourth column
     {
       title: "Role",
       dataIndex: "role",
@@ -97,7 +140,19 @@ const UserTable = ({ data, isFetching, setParams }: TTableProps) => {
           {role.toUpperCase()}
         </Tag>
       ),
+      align: "center",
+      onCell: () => ({
+        style: {
+          textAlign: "center",
+          maxWidth: 0,
+          whiteSpace: "nowrap",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+        },
+      }),
     },
+
+    // fifth column
     {
       title: "Status",
       dataIndex: "status",
@@ -107,7 +162,19 @@ const UserTable = ({ data, isFetching, setParams }: TTableProps) => {
           {status === "active" ? "ACTIVE" : "DEACTIVATED"}
         </Tag>
       ),
+      align: "center",
+      onCell: () => ({
+        style: {
+          textAlign: "center",
+          maxWidth: 0,
+          whiteSpace: "nowrap",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+        },
+      }),
     },
+
+    // sixth column
     {
       title: "Actions",
       key: "actions",
@@ -132,9 +199,20 @@ const UserTable = ({ data, isFetching, setParams }: TTableProps) => {
           </Popconfirm>
         </Space>
       ),
+      align: "center",
+      onCell: () => ({
+        style: {
+          textAlign: "center",
+          maxWidth: 0,
+          whiteSpace: "nowrap",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+        },
+      }),
     },
   ];
 
+  // handle status change here
   const handleStatusChange = async (userId: string, status: string) => {
     Notify({
       toastId: "1",
@@ -173,6 +251,7 @@ const UserTable = ({ data, isFetching, setParams }: TTableProps) => {
     }
   };
 
+  // handle delete here
   const handleDelete = async (userId: string) => {
     Notify({
       toastId: "1",
@@ -206,10 +285,12 @@ const UserTable = ({ data, isFetching, setParams }: TTableProps) => {
       });
     }
   };
+
   return (
-    <div className="p-6">
+    <div className="p-6 space-y-6">
+      {/* Table Section */}
       <Table
-        // loading={isFetching}
+        loading={isFetching}
         columns={columns}
         dataSource={tableData}
         className="shadow-md rounded-lg"
@@ -217,6 +298,8 @@ const UserTable = ({ data, isFetching, setParams }: TTableProps) => {
         rowKey={(record) => record.key}
         style={{ overflow: "auto" }}
       />
+
+      {/* Pagination Section */}
       <Pagination
         className="flex justify-center items-center mt-6"
         current={data?.meta?.page}
