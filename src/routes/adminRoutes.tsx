@@ -4,33 +4,54 @@ import ProductDetails from "../pages/admin/product/ProductDetails";
 import { TUserPaths } from "../types/route.type";
 import OrderManagement from "@/pages/admin/OrderManagement";
 import AllProducts from "@/pages/user/AllProducts";
+import ProtectedRoute from "@/components/layout/ProtectedRoute";
 
 const adminPaths: TUserPaths[] = [
   {
     name: "Dashboard",
     path: "dashboard",
-    element: <UserDashboard />,
+    element: (
+      <ProtectedRoute role="admin">
+        <UserDashboard />
+      </ProtectedRoute>
+    ),
   },
 
   {
     name: "User Management",
     path: "users",
-    element: <UserManagement />,
+    element: (
+      <ProtectedRoute role="admin">
+        <UserManagement />
+      </ProtectedRoute>
+    ),
   },
   {
     name: "Product Management",
     path: "products",
-    element: <AllProducts />,
+    element: (
+      <ProtectedRoute role="admin">
+        <AllProducts />
+      </ProtectedRoute>
+    ),
   },
   {
     name: "Product Details",
     path: "products/:productId",
-    element: <ProductDetails />,
+    element: (
+      <ProtectedRoute role="admin">
+        <ProductDetails />
+      </ProtectedRoute>
+    ),
   },
   {
     name: "Order Management",
     path: "orders",
-    element: <OrderManagement />,
+    element: (
+      <ProtectedRoute role="admin">
+        <OrderManagement />
+      </ProtectedRoute>
+    ),
   },
 ];
 

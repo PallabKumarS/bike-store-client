@@ -8,7 +8,7 @@ import { FieldValues, SubmitHandler } from "react-hook-form";
 import FilterForm from "@/components/form/FilterForm";
 import LoadingSkeleton from "@/components/ui/LoadingSkeleton";
 import { Button, Dropdown, Empty, Pagination, Typography } from "antd";
-import { FilterOutlined } from "@ant-design/icons";
+import { FilterOutlined, CloseOutlined } from "@ant-design/icons";
 import { HomeOutlined } from "@ant-design/icons";
 import { Breadcrumb } from "antd";
 import { NavLink } from "react-router-dom";
@@ -19,6 +19,7 @@ import { selectCurrentUser } from "@/redux/features/auth/authSlice";
 import AddProduct from "../admin/product/AddProduct";
 
 const AllProducts = () => {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const [params, setParams] = useState<TQueryParams[]>([]);
   const user = useAppSelector(selectCurrentUser);
 
@@ -83,6 +84,13 @@ const AllProducts = () => {
       });
     }
 
+    if (data?.brand) {
+      newParams.push({
+        name: "brand",
+        value: data?.brand,
+      });
+    }
+
     setParams([...newParams]);
   };
 
@@ -91,13 +99,21 @@ const AllProducts = () => {
   }: {
     onApplyFilters: SubmitHandler<FieldValues>;
   }) => (
-    <div className="bg-white p-6 rounded-lg shadow-lg min-w-[300px]">
+    <div className="bg-white p-6 rounded-lg shadow-lg min-w-[300px] relative">
+      <div className="flex justify-between items-center mb-4">
+        <h3 className="text-lg font-medium">Filters</h3>
+        <Button
+          type="text"
+          icon={<CloseOutlined />}
+          onClick={() => setDropdownOpen(false)}
+        />
+      </div>
       <FilterForm onApplyFilters={onApplyFilters} />
     </div>
   );
 
   if (isLoading) {
-    <LoadingSkeleton />;
+    return <LoadingSkeleton />;
   }
 
   return (
@@ -114,6 +130,7 @@ const AllProducts = () => {
       <div className="flex flex-col lg:flex-row justify-between items-center gap-5 mb-10">
         <h1 className="text-2xl font-semibold">All Products</h1>
 
+        {/* search bar here  */}
         <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
           <Search
             className="w-full sm:w-[300px]"
@@ -128,8 +145,11 @@ const AllProducts = () => {
             }}
           />
 
+          {/* Filter Button */}
           <div className="flex gap-4 w-full sm:w-auto">
             <Dropdown
+              open={dropdownOpen}
+              onOpenChange={(open) => setDropdownOpen(open)}
               dropdownRender={() => (
                 <FilterDropdown onApplyFilters={handleFilter} />
               )}
@@ -177,7 +197,12 @@ const AllProducts = () => {
         current={productsData?.meta?.page}
         total={productsData?.meta?.totalDoc}
         pageSize={productsData?.meta?.limit}
-        onChange={(newPage) => setParams([{ name: "page", value: newPage }])}
+        onChange={(newPage) => {
+          const existingParams = params.filter(
+            (param) => param.name !== "page"
+          );
+          setParams([...existingParams, { name: "page", value: newPage }]);
+        }}
       />
     </div>
   );

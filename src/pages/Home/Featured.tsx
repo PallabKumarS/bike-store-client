@@ -43,7 +43,7 @@ const Featured = () => {
         <Button
           type="primary"
           size="large"
-          onClick={() => navigate("/all-products")}
+          onClick={() => navigate("/products")}
           className="bg-blue-600 hover:bg-blue-700 h-12 px-8 text-lg"
         >
           View All Products

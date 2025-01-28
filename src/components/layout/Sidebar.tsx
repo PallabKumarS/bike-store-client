@@ -27,6 +27,10 @@ const Sidebar = () => {
           key: "dashboard",
           label: <NavLink to={"/customer/dashboard"}>Dashboard</NavLink>,
         },
+        {
+          key: "my-orders",
+          label: <NavLink to={"/customer/my-orders"}>My Orders</NavLink>,
+        },
       ];
       break;
     default:

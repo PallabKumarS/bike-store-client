@@ -86,10 +86,7 @@ const UserTable = ({ isFetching, data, setParams }: TTableProps) => {
       onCell: () => ({
         style: {
           textAlign: "center",
-          maxWidth: 0,
-          whiteSpace: "nowrap",
-          overflow: "hidden",
-          textOverflow: "ellipsis",
+          overflow: "auto",
         },
       }),
     },
@@ -104,10 +101,7 @@ const UserTable = ({ isFetching, data, setParams }: TTableProps) => {
       onCell: () => ({
         style: {
           textAlign: "center",
-          maxWidth: 0,
-          whiteSpace: "nowrap",
-          overflow: "hidden",
-          textOverflow: "ellipsis",
+          overflow: "auto",
         },
       }),
     },
@@ -122,10 +116,7 @@ const UserTable = ({ isFetching, data, setParams }: TTableProps) => {
       onCell: () => ({
         style: {
           textAlign: "center",
-          maxWidth: 0,
-          whiteSpace: "nowrap",
-          overflow: "hidden",
-          textOverflow: "ellipsis",
+          overflow: "auto",
         },
       }),
     },
@@ -144,10 +135,7 @@ const UserTable = ({ isFetching, data, setParams }: TTableProps) => {
       onCell: () => ({
         style: {
           textAlign: "center",
-          maxWidth: 0,
-          whiteSpace: "nowrap",
-          overflow: "hidden",
-          textOverflow: "ellipsis",
+          overflow: "auto",
         },
       }),
     },
@@ -166,10 +154,7 @@ const UserTable = ({ isFetching, data, setParams }: TTableProps) => {
       onCell: () => ({
         style: {
           textAlign: "center",
-          maxWidth: 0,
-          whiteSpace: "nowrap",
-          overflow: "hidden",
-          textOverflow: "ellipsis",
+          overflow: "auto",
         },
       }),
     },
@@ -203,10 +188,7 @@ const UserTable = ({ isFetching, data, setParams }: TTableProps) => {
       onCell: () => ({
         style: {
           textAlign: "center",
-          maxWidth: 0,
-          whiteSpace: "nowrap",
-          overflow: "hidden",
-          textOverflow: "ellipsis",
+          overflow: "auto",
         },
       }),
     },

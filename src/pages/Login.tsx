@@ -27,7 +27,7 @@ import { TResponse } from "@/types/global.type";
 import { verifyToken } from "@/utils/verifyToken";
 import { Button } from "antd";
 import { FieldValues, SubmitHandler } from "react-hook-form";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [register] = useRegisterMutation();
@@ -35,7 +35,6 @@ const Login = () => {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const location = useLocation();
 
   const handleLogin: SubmitHandler<FieldValues> = async (data) => {
     Notify({
@@ -51,7 +50,7 @@ const Login = () => {
       if (res?.success) {
         const user = verifyToken(res?.data?.accessToken) as TUser;
         dispatch(setUser({ user, token: res.data.accessToken }));
-        navigate(location.state || `/${user?.role}/dashboard`);
+        navigate(`/${user?.role}/dashboard`);
 
         Notify({
           destroyId: "1",

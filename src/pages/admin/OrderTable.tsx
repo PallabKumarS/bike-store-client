@@ -6,6 +6,8 @@ import Notify from "@/components/ui/Notify";
 import { DownOutlined } from "@ant-design/icons";
 import { useChangeOrderStatusMutation } from "@/redux/features/order/order.api";
 import { generateStatusItems, TStatus } from "@/utils/statusGenerator";
+import { TUser } from "@/redux/features/auth/authSlice";
+import { Link } from "react-router-dom";
 
 type TTableProps = {
   data?: {
@@ -15,18 +17,25 @@ type TTableProps = {
   isFetching: boolean;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   setParams: any;
+  user: TUser | null;
 };
 
 type TTableData = {
   key: string;
   orderId: string;
-  status: "pending" | "shipped" | "delivered" | "cancelled" | "processing";
+  status:
+    | "pending"
+    | "shipped"
+    | "delivered"
+    | "cancelled"
+    | "paid"
+    | "processing";
   totalPrice: number;
-  paymentMethod: string;
+  paymentId: string | undefined;
   createdAt: string;
 };
 
-const OrderTable = ({ data, setParams, isFetching }: TTableProps) => {
+const OrderTable = ({ data, setParams, isFetching, user }: TTableProps) => {
   // api hooks
   const [changeOrderStatus] = useChangeOrderStatusMutation();
 
@@ -36,14 +45,14 @@ const OrderTable = ({ data, setParams, isFetching }: TTableProps) => {
     orderId: order.orderId,
     status: order.status || "pending",
     totalPrice: order.totalPrice,
-    paymentMethod: order.paymentId || "",
+    paymentId: order?.transaction?.paymentId,
     createdAt: order.createdAt,
   }));
 
   const getStatusItems = (currentStatus: string) =>
     generateStatusItems(currentStatus as TStatus);
 
-  const columns: ColumnsType<TTableData> = [
+  const baseColumns: ColumnsType<TTableData> = [
     // first column
     {
       title: "Order ID",
@@ -54,10 +63,7 @@ const OrderTable = ({ data, setParams, isFetching }: TTableProps) => {
       onCell: () => ({
         style: {
           textAlign: "center",
-          maxWidth: 0,
-          whiteSpace: "nowrap",
-          overflow: "hidden",
-          textOverflow: "ellipsis",
+          overflow: "auto",
         },
       }),
     },
@@ -84,10 +90,7 @@ const OrderTable = ({ data, setParams, isFetching }: TTableProps) => {
       onCell: () => ({
         style: {
           textAlign: "center",
-          maxWidth: 0,
-          whiteSpace: "nowrap",
-          overflow: "hidden",
-          textOverflow: "ellipsis",
+          overflow: "auto",
         },
       }),
     },
@@ -97,15 +100,14 @@ const OrderTable = ({ data, setParams, isFetching }: TTableProps) => {
       title: "Payment Id",
       dataIndex: "paymentId",
       key: "paymentId",
-      render: (paymentMethod) => <Tag color="purple">{paymentMethod}</Tag>,
+      render: (_, record) => (
+        <Tag color="purple">{record?.paymentId || ""}</Tag>
+      ),
       align: "center",
       onCell: () => ({
         style: {
           textAlign: "center",
-          maxWidth: 0,
-          whiteSpace: "nowrap",
-          overflow: "hidden",
-          textOverflow: "ellipsis",
+          overflow: "auto",
         },
       }),
     },
@@ -120,10 +122,7 @@ const OrderTable = ({ data, setParams, isFetching }: TTableProps) => {
       onCell: () => ({
         style: {
           textAlign: "center",
-          maxWidth: 0,
-          whiteSpace: "nowrap",
-          overflow: "hidden",
-          textOverflow: "ellipsis",
+          overflow: "auto",
         },
       }),
     },
@@ -146,15 +145,13 @@ const OrderTable = ({ data, setParams, isFetching }: TTableProps) => {
       onCell: () => ({
         style: {
           textAlign: "center",
-          maxWidth: 0,
-          whiteSpace: "nowrap",
-          overflow: "hidden",
-          textOverflow: "ellipsis",
+          overflow: "auto",
         },
       }),
     },
+  ];
 
-    // sixth column
+  const adminColumn: ColumnsType<TTableData> = [
     {
       title: "Actions",
       key: "actions",
@@ -172,15 +169,41 @@ const OrderTable = ({ data, setParams, isFetching }: TTableProps) => {
           </Dropdown>
         </Space>
       ),
-
       align: "center",
       onCell: () => ({
         style: {
           textAlign: "center",
+          overflow: "auto",
         },
       }),
     },
   ];
+
+  const userColumn: ColumnsType<TTableData> = [
+    {
+      title: "Track Order",
+      key: "track",
+      render: (_, record) => (
+        <Link to={`/customer/order-tracking/${record.orderId}`}>
+          <Button type="primary" className="bg-blue-500">
+            Track Order
+          </Button>
+        </Link>
+      ),
+      align: "center",
+      onCell: () => ({
+        style: {
+          textAlign: "center",
+          overflow: "auto",
+        },
+      }),
+    },
+  ];
+
+  const columns =
+    user?.role === "admin"
+      ? [...baseColumns, ...adminColumn]
+      : [...baseColumns, ...userColumn];
 
   const handleStatusChange = async (orderId: string, status: string) => {
     Notify({

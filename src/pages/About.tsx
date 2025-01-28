@@ -42,7 +42,7 @@ const About = () => {
         animate={{ opacity: 1, y: 0 }}
         className="relative h-[60vh] mb-16"
       >
-        <Image
+        <img
           src={img4}
           alt="Hero Workshop"
           className="absolute inset-0 w-full h-full object-cover"

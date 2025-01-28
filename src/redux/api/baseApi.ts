@@ -12,8 +12,8 @@ import { logout, setUser } from "../features/auth/authSlice";
 import { verifyToken } from "../../utils/verifyToken";
 import Notify from "@/components/ui/Notify";
 
-export const baseUrl = "https://pks-bike-store-server.vercel.app/api";
-// export const baseUrl = "http://localhost:5000/api",
+// export const baseUrl = "https://pks-bike-store-server.vercel.app/api";
+export const baseUrl = "http://localhost:5000/api";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: baseUrl,
@@ -94,7 +94,16 @@ export const baseApi = createApi({
   reducerPath: "api",
   baseQuery: baseQueryWithRefreshToken,
   endpoints: () => ({}),
-  tagTypes: ["users", "products", "orders"],
+  tagTypes: [
+    "users",
+    "products",
+    "orders",
+    "brands",
+    "user",
+    "order",
+    "product",
+    "payment",
+  ],
 });
 
 export default baseApi;

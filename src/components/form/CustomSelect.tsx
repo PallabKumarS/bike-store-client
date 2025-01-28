@@ -1,10 +1,11 @@
 import { Form, Select } from "antd";
+import { ReactNode } from "react";
 import { Controller } from "react-hook-form";
 
 type TSelectProps = {
   label: string;
   name: string;
-  options: { label: string; value: string; disabled?: boolean }[];
+  options: { label: string | ReactNode; value: string; disabled?: boolean }[];
   required?: boolean;
   disabled?: boolean;
   mode?: string;
@@ -46,6 +47,7 @@ const CustomSelect = ({
             size="large"
             disabled={disabled}
             placeholder={label}
+            allowClear
           />
           {error && <small style={{ color: "red" }}>{error.message}</small>}
         </Form.Item>

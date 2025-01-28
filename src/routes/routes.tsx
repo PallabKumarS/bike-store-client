@@ -6,6 +6,9 @@ import adminPaths from "./adminRoutes";
 import UserDashboard from "../pages/user/UserDashboard";
 import DashboardLayout from "../components/layout/DashboardLayout";
 import ErrorPage from "@/pages/Errorpage";
+import ProtectedRoute from "@/components/layout/ProtectedRoute";
+import OrderManagement from "@/pages/admin/OrderManagement";
+import OrderTracking from "@/pages/user/OrderTracking";
 
 const router = createBrowserRouter([
   {
@@ -25,7 +28,27 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/customer/dashboard",
-        element: <UserDashboard />,
+        element: (
+          <ProtectedRoute role="customer">
+            <UserDashboard />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/customer/my-orders",
+        element: (
+          <ProtectedRoute role="customer">
+            <OrderManagement />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/customer/order-tracking/:orderId",
+        element: (
+          <ProtectedRoute role="customer">
+            <OrderTracking />
+          </ProtectedRoute>
+        ),
       },
     ],
   },

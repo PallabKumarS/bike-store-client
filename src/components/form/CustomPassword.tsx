@@ -38,6 +38,7 @@ export default function CustomPassword({
             size="large"
             disabled={disabled}
             placeholder={`Enter ${label}`}
+            allowClear
           />
           {error && <small style={{ color: "red" }}>{error.message}</small>}
         </Form.Item>

@@ -53,6 +53,7 @@ const CustomInput = ({
                 type === "number" ? Number(e.target.value) : e.target.value
               );
             }}
+            allowClear
           />
           {error && <small style={{ color: "red" }}>{error.message}</small>}
         </Form.Item>

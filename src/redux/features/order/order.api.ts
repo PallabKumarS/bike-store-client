@@ -35,7 +35,7 @@ const orderApi = baseApi.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["orders", "products"],
+      invalidatesTags: ["orders", "products", "product", "order", "payment"],
     }),
 
     // update order status
@@ -47,6 +47,24 @@ const orderApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["orders"],
     }),
+
+    // get single order
+    getSingleOrder: builder.query({
+      query: (id) => ({
+        url: `/orders/${id}`,
+        method: "GET",
+      }),
+      providesTags: ["order"],
+    }),
+
+    // verify payment
+    verifyPayment: builder.query({
+      query: (id) => ({
+        url: `/verify-payment/${id}`,
+        method: "GET",
+      }),
+      providesTags: ["payment"],
+    }),
   }),
 });
 
@@ -55,4 +73,6 @@ export const {
   useCreateOrderMutation,
   useGetMyOrdersQuery,
   useChangeOrderStatusMutation,
+  useGetSingleOrderQuery,
+  useVerifyPaymentQuery,
 } = orderApi;

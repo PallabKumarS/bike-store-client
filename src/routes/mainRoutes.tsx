@@ -5,6 +5,8 @@ import Login from "../pages/Login";
 import ProductDetails from "../pages/admin/product/ProductDetails";
 import About from "@/pages/About";
 import Checkout from "../pages/user/Checkout";
+import ProtectedRoute from "@/components/layout/ProtectedRoute";
+import VerifyPayment from "@/pages/user/VerifyPayment";
 
 const mainRoutes: TUserPaths[] = [
   {
@@ -25,7 +27,20 @@ const mainRoutes: TUserPaths[] = [
   {
     name: "Checkout",
     path: "checkout/:productId",
-    element: <Checkout />,
+    element: (
+      <ProtectedRoute role="customer">
+        <Checkout />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    name: "Verify Payment",
+    path: "verify-payment",
+    element: (
+      <ProtectedRoute role="customer">
+        <VerifyPayment />
+      </ProtectedRoute>
+    ),
   },
   {
     name: "Login",

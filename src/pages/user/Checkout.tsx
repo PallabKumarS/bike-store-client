@@ -23,6 +23,7 @@ const Checkout = () => {
   const { data: product, isFetching } = useGetSingleProductQuery(productId, {
     refetchOnMountOrArgChange: true,
     refetchOnReconnect: true,
+    refetchOnFocus: true,
     skip: !productId,
   });
   const [createOrder] = useCreateOrderMutation();
@@ -85,12 +86,9 @@ const Checkout = () => {
       totalPrice: totalPrice,
     };
 
-    console.log(orderData);
-
     try {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const res = (await createOrder(orderData)) as TResponse<any>;
-      console.log(res);
       if (res.data) {
         Notify({
           destroyId: "1",
@@ -98,6 +96,10 @@ const Checkout = () => {
           type: "success",
           message: res?.data?.message || "Order Placed",
         });
+
+        setTimeout(() => {
+          window.open(res.data.data.payment.checkout_url, "_blank");
+        }, 1000);
       } else {
         Notify({
           destroyId: "1",
