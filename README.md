@@ -34,7 +34,7 @@ Payment**.
 1. Clone the repository:
    ```sh
    git clone https://github.com/PallabKumarS/bike-store-client.git
-   cd moto-horizon-frontend
+   cd bike-store-client
    ```
 2. Install dependencies:
    ```sh
