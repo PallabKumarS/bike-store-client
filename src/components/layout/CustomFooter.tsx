@@ -6,8 +6,10 @@ import {
 } from "@ant-design/icons";
 import { Typography, Divider } from "antd";
 import { motion } from "framer-motion";
+import { NavLink } from "react-router-dom";
+import logo from "./../../assets/bikeStore.jpg";
 
-const { Title, Text } = Typography;
+const { Text } = Typography;
 
 const CustomFooter = () => {
   const socialLinks = [
@@ -29,12 +31,19 @@ const CustomFooter = () => {
             whileInView={{ opacity: 1, y: 0 }}
             className="text-center md:text-left"
           >
-            <Title level={3} className="text-blue-800">
-              BikeStore
-            </Title>
-            <Text className="text-gray-600">
-              Crafting Your Perfect Ride Since 2010
-            </Text>
+            <NavLink
+              to="/"
+              className="text-xl font-bold text-white text-center flex justify-center flex-col items-center gap-1"
+            >
+              <img src={logo} className="w-10 h-10 rounded-full" />
+
+              <h3 className="text-lg text-wrap md:text-2xl font-bold bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent">
+                Moto Horizon
+              </h3>
+              <Text className="text-gray-600">
+                Crafting Your Perfect Ride Since 2010
+              </Text>
+            </NavLink>
           </motion.div>
 
           <motion.div
@@ -62,7 +71,7 @@ const CustomFooter = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="text-center md:text-right"
+            className="text-center"
           >
             <Text className="block text-gray-600">Contact Us</Text>
             <Text className="block text-blue-800 font-semibold">
