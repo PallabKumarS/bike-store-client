@@ -89,6 +89,7 @@ const Checkout = () => {
 
     try {
       const res = (await createOrder(orderData)) as TResponse<any>;
+
       if (res.data) {
         Notify({
           destroyId: "1",
@@ -98,7 +99,10 @@ const Checkout = () => {
         });
 
         setTimeout(() => {
-          window.open(res.data.data.payment.checkout_url, "_blank");
+          window.open(
+            res?.data?.data?.transaction?.paymentUrl,
+            "_blank"
+          );
         }, 1000);
       } else {
         Notify({

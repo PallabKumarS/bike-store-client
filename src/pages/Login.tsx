@@ -47,8 +47,6 @@ const Login = () => {
     try {
       const res = await login(data).unwrap();
 
-      console.log(res);
-
       if (res?.success) {
         const user = verifyToken(res?.data?.accessToken) as TUser;
         dispatch(setUser({ user, token: res.data.accessToken }));

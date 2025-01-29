@@ -11,8 +11,8 @@ import { RootState } from "../store";
 import { logout, setUser } from "../features/auth/authSlice";
 import { verifyToken } from "../../utils/verifyToken";
 
-export const baseUrl = "https://pks-bike-store-server.vercel.app/api";
-// export const baseUrl = "http://localhost:5000/api";
+// export const baseUrl = "https://pks-bike-store-server.vercel.app/api";
+export const baseUrl = "http://localhost:5000/api";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: baseUrl,

@@ -89,7 +89,6 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
     try {
       const res = (await deleteProduct(id)) as TResponse<any>;
-      console.log(res);
       if (res?.data?.success) {
         Notify({
           destroyId: "1",

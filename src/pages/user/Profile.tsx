@@ -28,7 +28,6 @@ const Profile = ({ userData }: { userData: TUserData }) => {
 
     try {
       const res = (await changePassword(data)) as TResponse<any>;
-      console.log(res);
       if (res.data) {
         Notify({
           destroyId: "1",

@@ -33,6 +33,7 @@ type TTableData = {
   totalPrice: number;
   paymentId: string | undefined;
   createdAt: string;
+  paymentUrl: string;
 };
 
 const OrderTable = ({ data, setParams, isFetching, user }: TTableProps) => {
@@ -47,6 +48,7 @@ const OrderTable = ({ data, setParams, isFetching, user }: TTableProps) => {
     totalPrice: order.totalPrice,
     paymentId: order?.transaction?.paymentId,
     createdAt: order.createdAt,
+    paymentUrl: order.transaction?.paymentUrl || "",
   }));
 
   const getStatusItems = (currentStatus: string) =>
@@ -139,6 +141,25 @@ const OrderTable = ({ data, setParams, isFetching, user }: TTableProps) => {
             month: "long",
             day: "numeric",
           })}
+        </Tag>
+      ),
+      align: "center",
+      onCell: () => ({
+        style: {
+          textAlign: "center",
+          overflow: "auto",
+        },
+      }),
+    },
+
+    // sixth column
+    {
+      title: "Check Payment",
+      dataIndex: "paymentUrl",
+      key: "paymentUrl",
+      render: (url) => (
+        <Tag color="teal">
+          <Link to={url}>Payment Url</Link>
         </Tag>
       ),
       align: "center",
