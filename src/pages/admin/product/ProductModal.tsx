@@ -5,10 +5,11 @@ import CustomSelect from "@/components/form/CustomSelect";
 import CustomTextArea from "@/components/form/CustomTextArea";
 import { TProduct } from "@/types/product.type";
 import { Button, Col, Modal, Row } from "antd";
+import { FieldValues, SubmitHandler } from "react-hook-form";
 
 type ProductModalProps = {
   isModalOpen: boolean;
-  onOk: () => void;
+  onOk: SubmitHandler<FieldValues>;
   onCancel: () => void;
   data: TProduct;
   isLoading: boolean;

@@ -16,6 +16,7 @@ import { TResponse } from "@/types/global.type";
 import { useState } from "react";
 import { useAppSelector } from "@/redux/hooks";
 import { selectCurrentUser } from "@/redux/features/auth/authSlice";
+import { FieldValues, SubmitHandler } from "react-hook-form";
 
 const ProductDetails = () => {
   const [showModal, setShowModal] = useState(false);
@@ -63,7 +64,7 @@ const ProductDetails = () => {
   ];
 
   //   handle edit here
-  const handleEdit = async () => {
+  const handleEdit: SubmitHandler<FieldValues> = async (data) => {
     setIsLoading(true);
     Notify({
       toastId: "1",
@@ -74,15 +75,7 @@ const ProductDetails = () => {
     try {
       const res = (await updateProduct({
         id: product?.data?._id,
-        data: {
-          name: product?.data?.name,
-          price: product?.data?.price,
-          image: product?.data?.image,
-          description: product?.data?.description,
-          brand: product?.data?.brand,
-          quantity: product?.data?.quantity,
-          category: product?.data?.category,
-        },
+        data,
       })) as TResponse<any>;
 
       if (res?.data?.success) {

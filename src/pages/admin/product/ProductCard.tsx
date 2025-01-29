@@ -18,6 +18,7 @@ import { useAppSelector } from "@/redux/hooks";
 import { selectCurrentUser } from "@/redux/features/auth/authSlice";
 import MotionCard from "@/components/ui/MotionCard";
 import MotionButton from "@/components/ui/MotionButton";
+import { FieldValues, SubmitHandler } from "react-hook-form";
 
 type ProductCardProps = {
   product: TProduct;
@@ -37,7 +38,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
     product;
 
   //   handle edit here
-  const handleEdit = async () => {
+  const handleEdit: SubmitHandler<FieldValues> = async (data) => {
     setIsLoading(true);
     Notify({
       toastId: "1",
@@ -48,15 +49,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
     try {
       const res = (await updateProduct({
         id: _id,
-        data: {
-          name,
-          price,
-          image,
-          description,
-          brand,
-          quantity,
-          category,
-        },
+        data,
       })) as TResponse<any>;
 
       if (res?.data?.success) {
