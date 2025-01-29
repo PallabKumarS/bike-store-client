@@ -1,50 +1,50 @@
-# React + TypeScript + Vite
+# Moto Horizon - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[Live Link](https://pks-bike-store-client.vercel.app)
 
-Currently, two official plugins are available:
+Moto Horizon is a modern and interactive bike store web application built with
+**React** and **TypeScript**. It provides a seamless shopping experience with
+order management, user authentication, and payment integration using **Shurjo
+Payment**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## Expanding the ESLint configuration
+- **User Roles:** Admin & Customer.
+- **Dashboard:** Personalized dashboard for managing orders, users, and
+  products.
+- **Order Tracking:** View order statuses and track shipments.
+- **CRUD Operations:** Complete Create, Read, Update, and Delete functionality
+  for products, users, and orders.
+- **Payment Gateway:** Secure online payment using **Shurjo Payment**.
+- **Interactive UI:** Uses **Framer Motion** for smooth animations.
+- **Notifications:** Real-time toast messages and confirmation popups.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## 🛠️ Technologies Used
 
-- Configure the top-level `parserOptions` property like this:
+- **React** (Frontend Library)
+- **TypeScript** (Strongly Typed JavaScript)
+- **Shurjo Payment** (Payment Integration)
+- **Framer Motion** (Animations & Interactions)
+- **Antd Notification and Sonner** (Notification System)
+- **React Hook Form & Zod** (Form Handling & Validations)
+- **Redux Toolkit** (API Requests)
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## 📦 Installation & Setup
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/PallabKumarS/bike-store-client.git
+   cd moto-horizon-frontend
+   ```
+2. Install dependencies:
+   ```sh
+   npm install
+   ```
+3. Change the backend link in baseApi.ts file with your backend link
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+4. Start the development server:
+   ```sh
+   npm run dev
+   ```
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+---
