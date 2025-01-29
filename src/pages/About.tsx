@@ -50,7 +50,7 @@ const About = () => {
         <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
           <div className="text-center text-white">
             <motion.h1
-              className="text-5xl md:text-7xl font-bold mb-4"
+              className="text-3xl md:text-5xl font-bold mb-4"
               animate={{ scale: [1, 1.1, 1] }}
               transition={{ duration: 2, repeat: Infinity }}
             >
@@ -208,11 +208,11 @@ const About = () => {
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
-        className="mt-16"
+        className="mt-16 overflow-hidden"
       >
         <Row
           gutter={[32, 32]}
-          className="bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 p-12 rounded-2xl text-white"
+          className="bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 p-12 rounded-2xl text-white overflow-hidden"
         >
           <Col xs={24} lg={12}>
             <motion.div
@@ -231,7 +231,7 @@ const About = () => {
                   <div className="text-4xl">🏪</div>
                   <div>
                     <h3 className="text-xl font-bold">Flagship Store</h3>
-                    <p>123 Cycling Avenue, Bike District</p>
+                    <p>123 Bike Avenue, Bike District</p>
                   </div>
                 </motion.div>
 

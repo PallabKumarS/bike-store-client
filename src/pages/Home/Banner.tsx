@@ -42,7 +42,7 @@ const Banner = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white"
+            className="absolute top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white"
           >
             <h1 className="text-4xl md:text-6xl font-bold mb-4">
               {item.title}

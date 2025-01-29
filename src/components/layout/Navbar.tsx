@@ -21,7 +21,8 @@ const Navbar = () => {
         defaultSelectedKeys={[""]}
         items={navItems}
         style={{
-          minWidth: "60%",
+          minWidth: 0,
+          flex: 1,
         }}
       />
     </>

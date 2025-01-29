@@ -9,6 +9,7 @@ import {
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import Sidebar from "./Sidebar";
 import CustomFooter from "./CustomFooter";
+import logo from "./../../assets/bikeStore.jpg";
 
 const MainLayout = ({ sideBar = false }: { sideBar?: boolean }) => {
   const token = useAppSelector(selectCurrentToken);
@@ -24,21 +25,24 @@ const MainLayout = ({ sideBar = false }: { sideBar?: boolean }) => {
       {sideBar && <Sidebar />}
       <Layout>
         <Header
-          className=""
+          className="shadow-md mb-10 md:mb-0 mx-0 px-0 md:px-5 md:sticky"
           style={{
-            position: "sticky",
             top: 0,
             zIndex: 1,
             width: "100%",
           }}
         >
-          <div className="flex justify-center items-center md:justify-around gap-2">
+          <div className="flex items-center justify-around gap-2">
             {!sideBar && (
               <NavLink
                 to="/"
-                className="text-xl font-bold text-white text-center"
+                className="text-xl font-bold text-white text-center flex items-center gap-1"
               >
-                Bike Store
+                <img src={logo} className="w-10 h-10 rounded-full" />
+
+                <h3 className="text-lg text-wrap md:text-2xl font-bold bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent">
+                  Moto Horizon
+                </h3>
               </NavLink>
             )}
             <Navbar />

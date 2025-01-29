@@ -45,7 +45,7 @@ const Blogs = () => {
         >
           <h2 className="text-4xl font-bold mb-4">Latest From Our Blog</h2>
           <p className="text-gray-600">
-            Expert advice and inspiring stories from the cycling world
+            Expert advice and inspiring stories from the bike world
           </p>
         </motion.div>
 

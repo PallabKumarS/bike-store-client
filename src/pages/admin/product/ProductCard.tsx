@@ -121,7 +121,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
       <Badge.Ribbon text={`$${price}`} color="blue" className="animate-pulse">
         <Card
           hoverable
-          className="w-full sm:w-[300px] overflow-hidden bg-white rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300"
+          className="w-[260px] md:w-[300px] overflow-hidden bg-white rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 mx-auto"
           cover={
             <motion.div
               className="relative h-[200px] overflow-hidden"
@@ -232,7 +232,10 @@ const ProductCard = ({ product }: ProductCardProps) => {
                   color={quantity > 0 ? "gold" : "red"}
                   className="flex items-center gap-1"
                 >
-                  <span className="font-medium">Stock:</span> {quantity}
+                  <span className="font-medium">
+                    {quantity > 0 ? "Stock:" : "Out Of Stock"}
+                  </span>
+                  {quantity > 0 && quantity}
                 </Tag>
               </motion.div>
             </div>

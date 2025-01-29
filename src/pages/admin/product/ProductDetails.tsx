@@ -187,7 +187,8 @@ const ProductDetails = () => {
               </Tag>
               <Tag color="purple">Brand: {product?.data?.brand}</Tag>
               <Tag color={product?.data?.quantity > 0 ? "success" : "error"}>
-                Stock: {product?.data?.quantity}
+                {product?.data?.quantity > 0 ? "Stock:" : "Out Of Stock"}
+                {product?.data?.quantity > 0 && product?.data?.quantity}
               </Tag>
             </div>
           </div>

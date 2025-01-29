@@ -7,6 +7,7 @@ import sidebarRoutesGenerator from "../../utils/sidebarRoutesGenerator";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import { RiMenuFold4Fill, RiMenuFold3Fill } from "react-icons/ri";
+import logo from "./../../assets/bikeStore.jpg";
 
 const { Sider } = Layout;
 
@@ -63,7 +64,16 @@ const Sidebar = () => {
           fontSize: "18px",
         }}
       >
-        <NavLink to="/">Bike Store</NavLink>
+        <NavLink
+          to="/"
+          className="text-xl font-bold text-white text-center flex justify-center flex-wrap items-center gap-1"
+        >
+          <img src={logo} className="w-10 h-10 rounded-full" />
+
+          <h3 className="text-lg text-wrap md:text-2xl font-bold bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent">
+            Moto Horizon
+          </h3>
+        </NavLink>
       </div>
 
       {/* Custom Trigger Button */}

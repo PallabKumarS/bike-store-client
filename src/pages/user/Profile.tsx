@@ -60,9 +60,9 @@ const Profile = ({ userData }: { userData: TUserData }) => {
       animate={{ opacity: 1, y: 0 }}
       className="max-w-4xl mx-auto p-4"
     >
-      <Card className="shadow-2xl rounded-3xl overflow-hidden">
+      <Card className="shadow-2xl rounded-3xl">
         {/* Header Section */}
-        <div className="bg-gradient-to-r from-purple-600 to-indigo-700 p-10 text-white relative overflow-hidden">
+        <div className="bg-gradient-to-r from-purple-600 to-indigo-700 p-10 text-white relative overflow-auto">
           <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2" />
           <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/10 rounded-full translate-y-1/2 -translate-x-1/2" />
           <div className="flex items-center gap-8 relative z-10">
