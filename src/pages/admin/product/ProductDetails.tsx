@@ -52,7 +52,7 @@ const ProductDetails = () => {
     {
       title: (
         <NavLink
-          to={user?.role === "admin" ? "/admin/products" : "/all-products"}
+          to={user?.role === "admin" ? "/admin/products" : "/products"}
         >
           Products
         </NavLink>

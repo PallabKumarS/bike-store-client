@@ -42,7 +42,7 @@ const AllProducts = () => {
       ),
     },
     {
-      title: <NavLink to="/all-products">Products</NavLink>,
+      title: <NavLink to="/products">Products</NavLink>,
     },
   ];
 
